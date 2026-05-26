@@ -37,6 +37,8 @@
             letter-spacing: 0.5px;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            /* Дополнительный нижний отступ для всей страницы, чтобы контент не уходил под плавающие элементы */
+            padding-bottom: 60px;
         }
 
         .cinematic-fade {
@@ -55,7 +57,7 @@
         }
 
         header {
-            padding: 50px 20px 25px;
+            padding: 60px 20px 30px;
             text-align: center;
         }
 
@@ -80,7 +82,8 @@
         }
 
         section {
-            margin-bottom: 45px;
+            /* Увеличен отступ между функциональными блоками (было 45px) */
+            margin-bottom: 75px;
         }
 
         .section-title {
@@ -88,10 +91,11 @@
             font-size: 1.35rem;
             font-weight: 400;
             color: var(--text-color);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             letter-spacing: 2px;
             text-transform: uppercase;
             text-align: center;
+            cursor: pointer; /* Для индикации возможности клика разработчиком */
         }
 
         /* Премиальная бесшовная группа: Инпут + Кнопка */
@@ -172,7 +176,7 @@
             border: 1px solid var(--input-border);
             border-radius: 14px;
             z-index: 99;
-            margin-top: 6px;
+            margin-top: 8px;
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
             overflow: hidden;
         }
@@ -207,7 +211,7 @@
 
         /* Результаты и карточки */
         .result-container {
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .collector-card {
@@ -379,10 +383,11 @@
             margin-bottom: 10px;
         }
 
-        /* Премиальный блок Telegram внизу страницы */
+        /* Блок Telegram внизу страницы */
         footer {
-            margin-top: 140px; /* Увеличено расстояние, чтобы выпадающий список не перекрывал кнопку */
-            padding: 30px 20px 50px;
+            /* Увеличен верхний отступ для создания глубокого визуального разделения (было 140px) */
+            margin-top: 190px; 
+            padding: 40px 20px 60px;
             text-align: center;
             border-top: 1px solid #f2ece6;
         }
@@ -395,7 +400,7 @@
         .tg-description {
             font-size: 0.8rem;
             color: var(--muted-text);
-            margin-bottom: 18px;
+            margin-bottom: 22px;
             font-weight: 300;
             letter-spacing: 0.3px;
         }
@@ -404,7 +409,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--luxury-tg-color); /* Luxury-цвет из переменных */
+            background-color: var(--luxury-tg-color);
             color: var(--button-text);
             text-decoration: none;
             padding: 15px 32px;
@@ -440,7 +445,7 @@
 
     <main>
         <section class="cinematic-fade" id="registry-section">
-            <h2 class="section-title">The Collector's Registry</h2>
+            <h2 class="section-title" id="registry-title">The Collector's Registry</h2>
             
             <div id="registry-form-wrapper">
                 <form action="javascript:void(0);" id="registry-form">
@@ -729,6 +734,16 @@
         }
 
         registryForm.addEventListener('submit', (e) => { e.preventDefault(); executeRegistrySearch(); });
+
+        // МЕХАНИЗМ СБРОСА ЛИМИТОВ ДЛЯ РАЗРАБОТЧИКА (Тройной клик по заголовку)
+        document.getElementById('registry-title').addEventListener('click', function (e) {
+            if (e.detail === 3) { 
+                localStorage.removeItem('sr_failed_attempts');
+                localStorage.removeItem('sr_verified_code');
+                alert('Логи дебаггинга: Данные текущей сессии и лимиты попыток успешно сброшены.');
+                location.reload();
+            }
+        });
 
         // ЛОГИКА ЛУКБУКА
         const lookbookForm = document.getElementById('lookbook-form');
