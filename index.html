@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Renaissance | Collector Space</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --text-color: #e5e0da;
+            --accent-color: #c5a880; /* Приглушенное золото / Розовое золото */
+            --muted-text: #7a7570;
+            --plate-bg: #121212;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            letter-spacing: 0.5px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Эффект замедления для всего контента */
+        .cinematic-fade {
+            opacity: 0;
+            filter: blur(6px);
+            transform: translateY(15px);
+            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        filter 1.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .cinematic-fade.is-visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+
+        /* Шапка и Логотип */
+        header {
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 7px;
+            text-transform: uppercase;
+            color: var(--text-color);
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Стили секций и инпутов */
+        section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #2a2a2a;
+            padding: 15px 0;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.8s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent-color);
+        }
+
+        /* Выпадающие подсказки */
+        .suggestions-box {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--plate-bg);
+            border: 1px solid #1a1a1a;
+            z-index: 10;
+            margin-top: 5px;
+        }
+
+        .suggestion-title {
+            display: block;
+            padding: 12px 15px 5px;
+            font-size: 0.75rem;
+            color: var(--muted-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .suggestion-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            background: #1a1a1a;
+            color: var(--accent-color);
+        }
+
+        /* Карточка верификации и FOMO плашка */
+        .result-container {
+            margin-top: 25px;
+        }
+
+        .collector-card {
+            background: var(--plate-bg);
+            border: 1px solid #1a1a1a;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .collector-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .collector-card p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .ambient-btn {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.4s ease;
+        }
+
+        .ambient-btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        .fomo-plate {
+            background: var(--plate-bg);
+            border: 1px solid #221414;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .fomo-plate p {
+            font-size: 0.95rem;
+            color: #bfa8a8;
+            margin-bottom: 20px;
+        }
+
+        .fomo-btn {
+            display: inline-block;
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: opacity 0.3s ease;
+        }
+
+        .fomo-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Лукбук слайдшоу */
+        .lookbook-display {
+            margin-top: 30px;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .image-wrapper:hover img {
+            transform: scale(1.04);
+        }
+
+        .curator-note {
+            font-size: 0.9rem;
+            color: #aaa;
+            border-left: 1px solid var(--accent-color);
+            padding-left: 15px;
+            font-style: italic;
+        }
+
+        .tag-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid var(--muted-text);
+            padding: 3px 8px;
+            color: var(--muted-text);
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Spring Renaissance</div>
+    </header>
+
+    <main>
+        <section class="cinematic-fade" id="registry-section">
+            <h2 class="section-title">The Collector's Registry</h2>
+            <div class="input-wrapper">
+                <input type="text" id="registry-input" placeholder="Введите код верификации сертификата подлинности" autocomplete="off">
+            </div>
+            <div id="registry-result" class="result-container"></div>
+        </section>
+
+        <section class="cinematic-fade" id="lookbook-section">
+            <h2 class="section-title">Interior Lookbook</h2>
+            <div class="input-wrapper">
+                <input type="text" id="lookbook-input" placeholder="Найти интерьер для вдохновения..." autocomplete="off">
+                
+                <div id="suggestions" class="suggestions-box" style="display: none;">
+                    <span class="suggestion-title">Популярные запросы:</span>
+                    <div class="suggestion-item" data-value="Dark Academia">Dark Academia Library</div>
+                    <div class="suggestion-item" data-value="Minimalist Gallery">Minimalist Gallery</div>
+                    <div class="suggestion-item" data-value="Japandi">Japandi Spaces</div>
+                </div>
+            </div>
+
+            <div id="lookbook-result" class="lookbook-display"></div>
+        </section>
+    </main>
+
+    <script>
+        // --- ДАННЫЕ РЕЕСТРА (Когорты кодов) ---
+        function getVibeByCode(codeNum) {
+            if (codeNum >= 1 && codeNum <= 30) {
+                return {
+                    archetype: "Intellectual Noir",
+                    ambient: "Dark Jazz & Rain Session",
+                    note: "Ваш экземпляр №" + codeNum + " идеально раскрывается среди винтажных фолиантов, глубоких древесных текстур и приглушенного вечернего света."
+                };
+            } else if (codeNum >= 31 && codeNum <= 70) {
+                return {
+                    archetype: "Architectural Gallery",
+                    ambient: "Minimalist Structural Ambient",
+                    note: "Ваш экземпляр №" + codeNum + " спроектирован для открытых пространств. Рекомендуется падение естественного света под углом 45° на боковые грани акрилового тома."
+                };
+            } else if (codeNum >= 71 && codeNum <= 300) {
+                return {
+                    archetype: "Classic Bookcore",
+                    ambient: "Neoclassical Reading Lounge",
+                    note: "Ваш экземпляр №" + codeNum + " подчеркивает архитектонику классических домашних библиотек. Идеальное соседство — альбомы по искусству и монохромная графика."
+                };
+            }
+            return null;
+        }
+
+        // --- ДАННЫЕ ЛУКБУКА (Стили интерьеров) ---
+        const lookbookData = {
+            "dark academia": {
+                type: "REALIZED SPACE",
+                title: "Dark Academia Library",
+                img: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80",
+                note: "В пространстве классической библиотеки ваза Spring Renaissance выступает как световой акцент. Наполнение: скульптурные сухоцветы или ветки глубоких оттенков."
+            },
+            "minimalist gallery": {
+                type: "REALIZED SPACE",
+                title: "Minimalist Gallery",
+                img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+                note: "Музейная чистота линий. Ваза располагается на бетонных, мраморных или матовых однотонных поверхностях. Максимально раскрывает прозрачность оптического акрила."
+            },
+            "japandi": {
+                type: "ATMOSPHERIC MOODBOARD",
+                title: "Japandi Spaces",
+                img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+                note: "Концепт интеграции: Японский минимализм ценит воздух. Ваза ставится в уединенной зоне созерцания на светлые породы дерева (ясень, дуб) рядом с одиночным зеленым стеблем."
+            }
+        };
+
+        // Логика Реестра
+        const registryInput = document.getElementById('registry-input');
+        const registryResult = document.getElementById('registry-result');
+
+        registryInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const val = registryInput.value.trim();
+                const codeNum = parseInt(val);
+                registryResult.innerHTML = '';
+
+                // Создаем плашку с эффектом проявления
+                const wrapper = document.createElement('div');
+                wrapper.className = 'cinematic-fade';
+
+                if (!isNaN(codeNum) && codeNum >= 1 && codeNum <= 300) {
+                    const vibe = getVibeByCode(codeNum);
+                    wrapper.innerHTML = `
+                        <div class="collector-card">
+                            <h3>STATUS: CONFIRMED GENUINE</h3>
+                            <p><b>Object Hierarchy:</b> Edition I / Drop 300</p>
+                            <p><b>Aesthetic Archetype:</b> ${vibe.archetype}</p>
+                            <p class="curator-note" style="margin-top:15px;">${vibe.note}</p>
+                            <button class="ambient-btn" onclick="alert('Аудио-сессия подгружается...')">[ Play ${vibe.ambient} ]</button>
+                        </div>
+                    `;
+                } else {
+                    wrapper.innerHTML = `
+                        <div class="fomo-plate">
+                            <p>Введенный код не найден в реестре Edition I. Этот цифровой сектор зарезервирован исключительно для владельцев лимитированной серии.</p>
+                            <a href="#" class="fomo-btn">Стать владельцем Edition I</a>
+                        </div>
+                    `;
+                }
+                
+                registryResult.appendChild(wrapper);
+                setTimeout(() => wrapper.classList.add('is-visible'), 50);
+            }
+        });
+
+        // Логика подсказок Лукбука
+        const lookbookInput = document.getElementById('lookbook-input');
+        const suggestions = document.getElementById('suggestions');
+        const lookbookResult = document.getElementById('lookbook-result');
+
+        lookbookInput.addEventListener('focus', () => {
+            suggestions.style.display = 'block';
+        });
+
+        // Закрытие подсказок при клике мимо
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.input-wrapper')) {
+                suggestions.style.display = 'none';
+            }
+        });
+
+        // Клик по подсказке
+        document.querySelectorAll('.suggestion-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                lookbookInput.value = this.innerText;
+                suggestions.style.display = 'none';
+                renderLookbook(value.toLowerCase());
+            });
+        });
+
+        // Поиск по Enter
+        lookbookInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                suggestions.style.display = 'none';
+                renderLookbook(lookbookInput.value.toLowerCase().trim());
+            }
+        });
+
+        function renderLookbook(query) {
+            lookbookResult.innerHTML = '';
+            
+            // Ищем совпадение по ключам
+            let data = null;
+            for (let key in lookbookData) {
+                if (key.includes(query) || query.includes(key)) {
+                    data = lookbookData[key];
+                    break;
+                }
+            }
+
+            if (data) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'cinematic-fade';
+                wrapper.innerHTML = `
+                    <span class="tag-badge">${data.type}</span>
+                    <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.6rem; margin-bottom:15px; font-weight:300;">${data.title}</h3>
+                    <div class="image-wrapper">
+                        <img src="${data.img}" alt="${data.title}">
+                    </div>
+                    <p class="curator-note">${data.note}</p>
+                `;
+                lookbookResult.appendChild(wrapper);
+                setTimeout(() => wrapper.classList.add('is-visible'), 50);
+            } else {
+                lookbookResult.innerHTML = `<p style="font-size:0.9rem; color:var(--muted-text);">Стиль не найден. Попробуйте ввести "сканди", "dark" или воспользуйтесь подсказками.</p>`;
+            }
+        }
+
+        // Анимация появления основных блоков при загрузкие страницы
+        document.addEventListener("DOMContentLoaded", () => {
+            const fades = document.querySelectorAll('.cinematic-fade');
+            fades.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('is-visible');
+                }, index * 300); // Поочередное появление блоков
+            });
+        });
+    </script>
+</body>
+</html>
