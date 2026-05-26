@@ -18,7 +18,7 @@
             --button-bg: #211f1c;
             --button-text: #ffffff;
             --card-bg: #ffffff;
-            --luxury-tg-color: #5E4638; /* Новый премиальный оттенок */
+            --luxury-tg-color: #5E4638; /* Премиальный оттенок */
         }
 
         * {
@@ -37,17 +37,16 @@
             letter-spacing: 0.5px;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            /* Дополнительный нижний отступ для всей страницы, чтобы контент не уходил под плавающие элементы */
-            padding-bottom: 60px;
+            padding-bottom: 80px;
         }
 
         .cinematic-fade {
             opacity: 0;
             filter: blur(4px);
-            transform: translateY(12px);
-            transition: opacity 1s cubic-bezier(0.215, 0.610, 0.355, 1),
-                        filter 1s cubic-bezier(0.215, 0.610, 0.355, 1),
-                        transform 1s cubic-bezier(0.215, 0.610, 0.355, 1);
+            transform: translateY(20px);
+            transition: opacity 1.2s cubic-bezier(0.215, 0.610, 0.355, 1),
+                        filter 1.2s cubic-bezier(0.215, 0.610, 0.355, 1),
+                        transform 1.2s cubic-bezier(0.215, 0.610, 0.355, 1);
         }
 
         .cinematic-fade.is-visible {
@@ -57,7 +56,7 @@
         }
 
         header {
-            padding: 60px 20px 30px;
+            padding: 80px 20px 40px;
             text-align: center;
         }
 
@@ -82,8 +81,7 @@
         }
 
         section {
-            /* Увеличен отступ между функциональными блоками (было 45px) */
-            margin-bottom: 75px;
+            margin-bottom: 90px;
         }
 
         .section-title {
@@ -91,14 +89,13 @@
             font-size: 1.35rem;
             font-weight: 400;
             color: var(--text-color);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             letter-spacing: 2px;
             text-transform: uppercase;
             text-align: center;
-            cursor: pointer; /* Для индикации возможности клика разработчиком */
+            cursor: pointer;
         }
 
-        /* Премиальная бесшовная группа: Инпут + Кнопка */
         .input-group {
             display: flex;
             align-items: center;
@@ -166,7 +163,6 @@
             transform: translateX(2px);
         }
 
-        /* Выпадающие подсказки */
         .suggestions-box {
             position: absolute;
             top: 100%;
@@ -209,7 +205,6 @@
             color: var(--accent-color);
         }
 
-        /* Результаты и карточки */
         .result-container {
             margin-top: 25px;
         }
@@ -294,7 +289,6 @@
             transition: background 0.3s ease;
         }
 
-        /* Галерея Лукбука */
         .lookbook-display {
             margin-top: 25px;
         }
@@ -383,11 +377,9 @@
             margin-bottom: 10px;
         }
 
-        /* Блок Telegram внизу страницы */
         footer {
-            /* Увеличен верхний отступ для создания глубокого визуального разделения (было 140px) */
-            margin-top: 190px; 
-            padding: 40px 20px 60px;
+            margin-top: 220px; /* Глубокое разделение для структуры Quiet Luxury */
+            padding: 60px 20px 80px;
             text-align: center;
             border-top: 1px solid #f2ece6;
         }
@@ -400,7 +392,7 @@
         .tg-description {
             font-size: 0.8rem;
             color: var(--muted-text);
-            margin-bottom: 22px;
+            margin-bottom: 24px;
             font-weight: 300;
             letter-spacing: 0.3px;
         }
@@ -412,7 +404,7 @@
             background-color: var(--luxury-tg-color);
             color: var(--button-text);
             text-decoration: none;
-            padding: 15px 32px;
+            padding: 16px 36px;
             border-radius: 50px;
             font-size: 0.75rem;
             font-weight: 400;
@@ -829,22 +821,31 @@
                 `;
                 lookbookResult.appendChild(wrapper);
                 setTimeout(() => wrapper.classList.add('is-visible'), 50);
-            } else {
-                lookbookResult.innerHTML = `<p style="font-size:0.85rem; color:var(--muted-text); text-align:center; padding-top:15px;">Стиль не найден. Попробуйте выбрать из предложенного списка.</p>`;
             }
-            lookbookInput.blur();
         }
 
-        // Инициализация страницы
-        document.addEventListener('DOMContentLoaded', () => {
+        // КИНЕМАТОГРАФИЧНЫЙ СКРОЛЛ-НАБЛЮДАТЕЛЬ (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.08
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.cinematic-fade').forEach(element => {
+            scrollObserver.observe(element);
+        });
+
+        // Первичная проверка статуса реестра при загрузке страницы
+        window.addEventListener('DOMContentLoaded', () => {
             checkRegistryStatus();
-            
-            // Плавное появление блоков при загрузке
-            setTimeout(() => {
-                document.querySelectorAll('.cinematic-fade').forEach(el => {
-                    el.classList.add('is-visible');
-                });
-            }, 100);
         });
     </script>
 </body>
