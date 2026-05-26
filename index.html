@@ -54,7 +54,7 @@
             transform: translateY(0);
         }
 
-        /* Шапка с секцией для твоего Логотипа */
+        /* Шапка */
         header {
             padding: 50px 20px 25px;
             text-align: center;
@@ -62,7 +62,7 @@
 
         .brand-logo-container {
             display: inline-block;
-            max-width: 220px; /* Ограничение ширины, чтобы логотип не был гигантским */
+            max-width: 220px;
             width: 100%;
             transition: opacity 0.3s ease;
         }
@@ -125,7 +125,7 @@
             padding: 16px 18px;
             font-family: 'Montserrat', sans-serif;
             color: var(--text-color);
-            font-size: 16px; /* Защита от авто-зума на iOS */
+            font-size: 16px;
             font-weight: 300;
             outline: none;
             -webkit-appearance: none;
@@ -136,7 +136,6 @@
             font-size: 0.9rem;
         }
 
-        /* Минималистичная кнопка отправки */
         .inline-submit-btn {
             background: none;
             border: none;
@@ -265,7 +264,7 @@
             border-radius: 8px;
         }
 
-        /* FOMO плашка */
+        /* FOMO плашка ограничения */
         .fomo-plate {
             background: #fdfcfb;
             border: 1px solid #f2ece6;
@@ -300,25 +299,79 @@
             opacity: 0.85;
         }
 
-        /* Лукбук */
+        /* Лукбук с галереей */
         .lookbook-display {
             margin-top: 25px;
         }
 
         .image-wrapper {
+            position: relative;
             width: 100%;
             aspect-ratio: 3 / 4;
             max-height: 65vh;
             border-radius: 16px;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            background: #f5f2ed;
         }
 
         .image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        /* Навигация слайдера */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 12px;
+            pointer-events: none;
+        }
+
+        .slider-arrow {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            color: var(--text-color);
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .slider-arrow:active {
+            transform: scale(0.92);
+            background: #ffffff;
+        }
+
+        .slider-arrow svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+        }
+
+        .slider-counter {
+            font-size: 0.75rem;
+            color: var(--muted-text);
+            text-align: right;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
         }
 
         .curator-note {
@@ -359,7 +412,7 @@
             <form action="javascript:void(0);" id="registry-form">
                 <div class="input-group">
                     <div class="input-wrapper">
-                        <input type="text" id="registry-input" inputmode="numeric" pattern="[0-9]*" placeholder="Введите ваш код верификации" autocomplete="off">
+                        <input type="text" id="registry-input" placeholder="Введите персональный ключ доступа" autocomplete="off">
                     </div>
                     <button type="submit" class="inline-submit-btn" aria-label="Поиск">
                         <svg viewBox="0 0 24 24">
@@ -402,100 +455,84 @@
     </main>
 
     <script>
-        // БАЗА ДАННЫХ КОГОРТ
-        function getVibeByCode(codeNum) {
-            if (codeNum >= 0 && codeNum <= 30) {
-                return {
-                    archetype: "Intellectual Noir (Кастомный номер)",
-                    note: "Ваш эксклюзивный экземпляр №" + codeNum + " гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.",
-                    trackTitle: "Аудио-сессия: Dark Jazz & Rain Session",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-                };
-            } 
-            else if (codeNum >= 31 && codeNum <= 70) {
-                return {
-                    archetype: "Architectural Gallery",
-                    note: "Экземпляр №" + codeNum + " создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.",
-                    trackTitle: "Аудио-сессия: Minimalist Structural Ambient",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
-                };
-            } 
-            else if (codeNum >= 71 && codeNum <= 150) {
-                return {
-                    archetype: "Classic Bookcore Edition",
-                    note: "Экземпляр №" + codeNum + " подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.",
-                    trackTitle: "Аудио-сессия: Neoclassical Reading Lounge",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
-                };
-            } 
-            else if (codeNum >= 151 && codeNum <= 230) {
-                return {
-                    archetype: "Modern Heritage",
-                    note: "Ваш экземпляр №" + codeNum + " — это мост между традицией и футуризмом акриловых граней.",
-                    trackTitle: "Аудио-сессия: Modern Heritage Ambient",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
-                };
-            } 
-            else if (codeNum >= 231 && codeNum <= 270) {
-                return {
-                    archetype: "Silent Luxury Cohort",
-                    note: "Эстетика тихого люкса для номера №" + codeNum + ". Минимум декора, максимум текстуры.",
-                    trackTitle: "Аудио-сессия: Soft Shimmering Light",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
-                };
-            } 
-            else if (codeNum >= 271 && codeNum <= 299) {
-                return {
-                    archetype: "Avant-Garde Collector",
-                    note: "Предпоследняя когорта №" + codeNum + ". Смелые дизайнерские пространства, наполненные искусством.",
-                    trackTitle: "Аудио-сессия: Experimental Lo-Fi Session",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
-                };
-            } 
-            else if (codeNum === 300) {
-                return {
-                    archetype: "The Final Opus (Apex Number)",
-                    note: "Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.",
-                    trackTitle: "Аудио-сессия: The Grand Finale Ambient",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
-                };
+        // ЗАКРЫТАЯ БАЗА КЛЮЧЕЙ КЛИЕНТОВ (Токены верификации)
+        const secretRegistry = {
+            "60renaissance60": {
+                number: 60,
+                archetype: "Architectural Gallery",
+                note: "Экземпляр №60 создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.",
+                trackTitle: "Аудио-сессия: Minimalist Structural Ambient",
+                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+            },
+            "1renaissance1": {
+                number: 1,
+                archetype: "Intellectual Noir (Кастомный номер)",
+                note: "Ваш эксклюзивный экземпляр №1 гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.",
+                trackTitle: "Аудио-сессия: Dark Jazz & Rain Session",
+                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            },
+            "300renaissance300": {
+                number: 300,
+                archetype: "The Final Opus (Apex Number)",
+                note: "Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.",
+                trackTitle: "Аудио-сессия: The Grand Finale Ambient",
+                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
             }
-            return null;
-        }
+        };
 
-        // БАЗА ДАННЫХ ЛУКБУКА
+        // БАЗА ДАННЫХ ЛУКБУКА (Массивы фотографий для перелистывания)
+        // Чтобы поставить свои фото, просто загрузи их на GitHub и замени ссылки на имена файлов, например: ["vaza1.jpg", "vaza2.jpg"]
         const lookbookData = {
             "dark academia": {
                 type: "REALIZED SPACE",
                 title: "Dark Academia Library",
-                img: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80",
+                imgs: [
+                    "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1200&q=80"
+                ],
                 note: "В пространстве классической библиотеки ваза Spring Renaissance выступает как призматический световой акцент."
             },
             "japandi": {
                 type: "ATMOSPHERIC MOODBOARD",
                 title: "Japandi Spaces",
-                img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+                imgs: [
+                    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80"
+                ],
                 note: "Японский минимализм ценит воздух и уединение. Идеальное сочетание со светлым дубом и одиночным зеленым стеблем."
             },
             "scandinavian": {
                 type: "DESIGN INTERIOR",
                 title: "Scandinavian Clean Lines",
-                img: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80",
+                imgs: [
+                    "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=80"
+                ],
                 note: "Скандинавская эстетика уюта. Прозрачность оптического акрила идеально раскрывается при падении дневного света."
             },
             "modern classic": {
                 type: "LUXURY AMBIANCE",
                 title: "Modern Classical Salon",
-                img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+                imgs: [
+                    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"
+                ],
                 note: "Сочетание лепнины, высоких потолков и хай-тек акрила создает уникальный вневременной контраст."
             },
             "mid-century": {
                 type: "ARCHITECTURAL CONCEPT",
                 title: "Mid-Century Modern Vibe",
-                img: "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=80",
+                imgs: [
+                    "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=80",
+                    "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80"
+                ],
                 note: "Эстетика 60-х годов с теплыми ореховыми тонами мебели подчеркивает геометрию акриловой формы."
             }
         };
+
+        // ГЛОБАЛЬНЫЙ ТРЕКЕР ТЕКУЩЕГО ИНДЕКСА СЛАЙДЕРА
+        let currentImgIndex = 0;
 
         // ЛОГИКА РЕЕСТРА КОДОВ
         const registryForm = document.getElementById('registry-form');
@@ -503,16 +540,16 @@
         const registryResult = document.getElementById('registry-result');
 
         function executeRegistrySearch() {
-            const val = registryInput.value.trim();
-            const codeNum = parseInt(val);
-            if (!val) return;
+            const tokenInput = registryInput.value.trim(); // Считываем буквенный токен полностью
+            if (!tokenInput) return;
 
             registryResult.innerHTML = '';
             const wrapper = document.createElement('div');
             wrapper.className = 'cinematic-fade';
 
-            if (!isNaN(codeNum) && codeNum >= 0 && codeNum <= 300) {
-                const vibe = getVibeByCode(codeNum);
+            // Проверяем наличие токена в защищенной базе данных
+            if (secretRegistry.hasOwnProperty(tokenInput)) {
+                const vibe = secretRegistry[tokenInput];
                 wrapper.innerHTML = `
                     <div class="collector-card">
                         <h3>STATUS: CONFIRMED GENUINE</h3>
@@ -526,10 +563,11 @@
                     </div>
                 `;
             } else {
+                // Плашка ограничения для неавторизованных кодов или простых чисел типа "60"
                 wrapper.innerHTML = `
                     <div class="fomo-plate">
-                        <p>Введенный код не найден в реестре Edition I. Этот премиальный сектор зарезервирован исключительно для владельцев лимитированной серии.</p>
-                        <a href="#" class="fomo-btn">Стать владельцем Edition I</a>
+                        <p>Доступ ограничен. Введенный идентификатор не найден в верифицированном реестре Edition I. Если вы приобрели вазу, используйте секретный буквенно-цифровой токен из карты аутентичности.</p>
+                        <a href="https://t.me/your_manager" target="_blank" class="fomo-btn">Получить токен владельца</a>
                     </div>
                 `;
             }
@@ -540,11 +578,6 @@
         }
 
         registryForm.addEventListener('submit', (e) => { e.preventDefault(); executeRegistrySearch(); });
-        registryInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.keyCode === 13) {
-                executeRegistrySearch();
-            }
-        });
 
         // ЛОГИКА ЛУКБУКА
         const lookbookForm = document.getElementById('lookbook-form');
@@ -575,11 +608,23 @@
         }
 
         lookbookForm.addEventListener('submit', (e) => { e.preventDefault(); executeLookbookSearch(); });
-        lookbookInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.keyCode === 13) {
-                executeLookbookSearch();
-            }
-        });
+
+        // ФУНКЦИЯ СМЕНЫ ФОТО В СЛАЙДЕРЕ
+        window.changeSlide = function(direction, maxImages, imgArray) {
+            currentImgIndex += direction;
+            if (currentImgIndex < 0) currentImgIndex = maxImages - 1;
+            if (currentImgIndex >= maxImages) currentImgIndex = 0;
+            
+            const imgElement = document.getElementById('lookbook-slider-img');
+            const counterElement = document.getElementById('lookbook-counter');
+            
+            imgElement.style.opacity = '0';
+            setTimeout(() => {
+                imgElement.src = imgArray[currentImgIndex];
+                imgElement.style.opacity = '1';
+                counterElement.innerText = `${currentImgIndex + 1} из ${maxImages}`;
+            }, 200);
+        };
 
         function renderLookbook(query) {
             if (!query) return;
@@ -594,14 +639,29 @@
             }
 
             if (data) {
+                currentImgIndex = 0; // Сброс индекса на первую картинку концепта
                 const wrapper = document.createElement('div');
                 wrapper.className = 'cinematic-fade';
+                
+                // Формируем структуру с кнопками поверх фото и счетчиком
                 wrapper.innerHTML = `
                     <span class="tag-badge">${data.type}</span>
                     <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.35rem; margin-bottom:12px; font-weight:400; text-transform: uppercase;">${data.title}</h3>
+                    
                     <div class="image-wrapper">
-                        <img src="${data.img}" alt="${data.title}">
+                        <img id="lookbook-slider-img" src="${data.imgs[0]}" alt="${data.title}">
+                        
+                        <div class="slider-nav">
+                            <button class="slider-arrow" onclick="changeSlide(-1, ${data.imgs.length}, ${JSON.stringify(data.imgs).replace(/"/g, '&quot;')})" aria-label="Назад">
+                                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            </button>
+                            <button class="slider-arrow" onclick="changeSlide(1, ${data.imgs.length}, ${JSON.stringify(data.imgs).replace(/"/g, '&quot;')})" aria-label="Вперед">
+                                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </button>
+                        </div>
                     </div>
+                    
+                    <div class="slider-counter" id="lookbook-counter">1 из ${data.imgs.length}</div>
                     <p class="curator-note">${data.note}</p>
                 `;
                 lookbookResult.appendChild(wrapper);
