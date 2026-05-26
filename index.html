@@ -18,6 +18,7 @@
             --button-bg: #211f1c;
             --button-text: #ffffff;
             --card-bg: #ffffff;
+            --luxury-tg-color: #5E4638; /* Новый премиальный оттенок */
         }
 
         * {
@@ -380,7 +381,7 @@
 
         /* Премиальный блок Telegram внизу страницы */
         footer {
-            margin-top: 20px;
+            margin-top: 140px; /* Увеличено расстояние, чтобы выпадающий список не перекрывал кнопку */
             padding: 30px 20px 50px;
             text-align: center;
             border-top: 1px solid #f2ece6;
@@ -403,7 +404,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--button-bg);
+            background-color: var(--luxury-tg-color); /* Luxury-цвет из переменных */
             color: var(--button-text);
             text-decoration: none;
             padding: 15px 32px;
@@ -412,7 +413,7 @@
             font-weight: 400;
             letter-spacing: 2px;
             text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 15px rgba(94, 70, 56, 0.15);
             transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
         }
 
@@ -639,14 +640,12 @@
             const savedCode = localStorage.getItem('sr_verified_code');
             const totalAttempts = parseInt(localStorage.getItem('sr_failed_attempts') || '0', 10);
 
-            // Сценарий 1: Клиент уже успешно ввел свой код ранее
             if (savedCode) {
-                registryFormWrapper.style.display = 'none'; // Убираем форму ввода навсегда
+                registryFormWrapper.style.display = 'none';
                 renderSuccessfulCard(savedCode);
                 return true;
             }
 
-            // Сценарий 2: Клиент исчерпал 3 попытки брутфорса
             if (totalAttempts >= 3) {
                 registryFormWrapper.style.display = 'none';
                 renderLockedPlate();
@@ -700,12 +699,10 @@
             const vibe = getVibeByToken(rawInput);
 
             if (vibe) {
-                // Если код верный: фиксируем в памяти и полностью блокируем будущие изменения
                 localStorage.setItem('sr_verified_code', rawInput);
                 registryFormWrapper.style.display = 'none';
                 renderSuccessfulCard(rawInput);
             } else {
-                // Если код ошибочный: повышаем счетчик неудачных попыток
                 let attempts = parseInt(localStorage.getItem('sr_failed_attempts') || '0', 10);
                 attempts += 1;
                 localStorage.setItem('sr_failed_attempts', attempts.toString());
@@ -714,7 +711,6 @@
                     registryFormWrapper.style.display = 'none';
                     renderLockedPlate();
                 } else {
-                    // Обычная плашка ошибки (осталось попыток: 3 - attempts)
                     registryResult.innerHTML = '';
                     const wrapper = document.createElement('div');
                     wrapper.className = 'cinematic-fade';
@@ -825,16 +821,15 @@
         }
 
         // Инициализация страницы
-        document.addEventListener("DOMContentLoaded", () => {
-            // Проверяем статус блокировок/успешного входа при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
             checkRegistryStatus();
-
-            const fades = document.querySelectorAll('.cinematic-fade');
-            fades.forEach((el, index) => {
-                setTimeout(() => {
+            
+            // Плавное появление блоков при загрузке
+            setTimeout(() => {
+                document.querySelectorAll('.cinematic-fade').forEach(el => {
                     el.classList.add('is-visible');
-                }, index * 150);
-            });
+                });
+            }, 100);
         });
     </script>
 </body>
