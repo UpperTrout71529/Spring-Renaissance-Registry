@@ -38,7 +38,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Кинематографичное появление */
         .cinematic-fade {
             opacity: 0;
             filter: blur(4px);
@@ -54,7 +53,6 @@
             transform: translateY(0);
         }
 
-        /* Шапка */
         header {
             padding: 50px 20px 25px;
             text-align: center;
@@ -64,7 +62,6 @@
             display: inline-block;
             max-width: 220px;
             width: 100%;
-            transition: opacity 0.3s ease;
         }
 
         .brand-logo-container img {
@@ -78,7 +75,7 @@
             width: 100%;
             max-width: 540px;
             margin: 0 auto;
-            padding: 10px 20px 40px;
+            padding: 10px 20px 20px;
         }
 
         section {
@@ -164,7 +161,7 @@
             transform: translateX(2px);
         }
 
-        /* Выпадающие подсказки лукбука */
+        /* Выпадающие подсказки */
         .suggestions-box {
             position: absolute;
             top: 100%;
@@ -207,7 +204,7 @@
             color: var(--accent-color);
         }
 
-        /* Карточка верификации */
+        /* Результаты и карточки */
         .result-container {
             margin-top: 20px;
         }
@@ -241,7 +238,6 @@
             font-weight: 400;
         }
 
-        /* Аудио-блок */
         .audio-player-container {
             margin-top: 20px;
             padding-top: 15px;
@@ -264,14 +260,12 @@
             border-radius: 8px;
         }
 
-        /* FOMO плашка ограничения */
         .fomo-plate {
             background: #fdfcfb;
             border: 1px solid #f2ece6;
             border-radius: 18px;
             padding: 30px 20px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.01);
         }
 
         .fomo-plate p {
@@ -295,11 +289,7 @@
             transition: background 0.3s ease;
         }
 
-        .fomo-btn:active {
-            opacity: 0.85;
-        }
-
-        /* Лукбук с галереей */
+        /* Галерея Лукбука */
         .lookbook-display {
             margin-top: 25px;
         }
@@ -324,7 +314,6 @@
             transition: opacity 0.4s ease-in-out;
         }
 
-        /* Навигация слайдера */
         .slider-nav {
             position: absolute;
             top: 50%;
@@ -348,14 +337,7 @@
             justify-content: center;
             cursor: pointer;
             pointer-events: auto;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             color: var(--text-color);
-            transition: background 0.2s, transform 0.2s;
-        }
-
-        .slider-arrow:active {
-            transform: scale(0.92);
-            background: #ffffff;
         }
 
         .slider-arrow svg {
@@ -394,7 +376,56 @@
             padding: 4px 8px;
             color: var(--accent-color);
             margin-bottom: 10px;
+        }
+
+        /* Премиальный блок Telegram внизу страницы */
+        footer {
+            margin-top: 20px;
+            padding: 30px 20px 50px;
+            text-align: center;
+            border-top: 1px solid #f2ece6;
+        }
+
+        .tg-channel-block {
+            max-width: 540px;
+            margin: 0 auto;
+        }
+
+        .tg-description {
+            font-size: 0.8rem;
+            color: var(--muted-text);
+            margin-bottom: 18px;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        .tg-premium-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            text-decoration: none;
+            padding: 15px 32px;
+            border-radius: 50px;
+            font-size: 0.75rem;
             font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+
+        .tg-premium-btn svg {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            fill: currentColor;
+        }
+
+        .tg-premium-btn:active {
+            background-color: var(--accent-color);
+            transform: scale(0.98);
         }
     </style>
 </head>
@@ -409,19 +440,23 @@
     <main>
         <section class="cinematic-fade" id="registry-section">
             <h2 class="section-title">The Collector's Registry</h2>
-            <form action="javascript:void(0);" id="registry-form">
-                <div class="input-group">
-                    <div class="input-wrapper">
-                        <input type="text" id="registry-input" placeholder="Введите персональный ключ доступа" autocomplete="off">
+            
+            <div id="registry-form-wrapper">
+                <form action="javascript:void(0);" id="registry-form">
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <input type="text" id="registry-input" placeholder="Введите персональный ключ доступа" autocomplete="off">
+                        </div>
+                        <button type="submit" class="inline-submit-btn" aria-label="Поиск">
+                            <svg viewBox="0 0 24 24">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
                     </div>
-                    <button type="submit" class="inline-submit-btn" aria-label="Поиск">
-                        <svg viewBox="0 0 24 24">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
+
             <div id="registry-result" class="result-container"></div>
         </section>
 
@@ -454,25 +489,32 @@
         </section>
     </main>
 
+    <footer class="cinematic-fade">
+        <div class="tg-channel-block">
+            <p class="tg-description">Присоединяйтесь к нашему закрытому диджитал-журналу, чтобы исследовать новые эстетические дропы и философию предметов искусства.</p>
+            <a href="https://t.me/SpringRenaissance" target="_blank" class="tg-premium-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.62.15-.15 2.7-2.46 2.75-2.67.01-.03.01-.13-.05-.18-.06-.05-.14-.03-.2-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .34z"/>
+                </svg>
+                Spring Renaissance Channel
+            </a>
+        </div>
+    </footer>
+
     <script>
-        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР ДЛЯ ВСЕХ 300 КЛЮЧЕЙ (БЕЗ ДУБЛИРОВАНИЯ КОДА)
+        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР
         function getVibeByToken(token) {
-            // Очищаем пробелы и переводим в нижний регистр
             const cleanToken = token.trim().toLowerCase();
-            
-            // Проверяем паттерн: группа цифр + "renaissance" + группа цифр
             const match = cleanToken.match(/^(\d+)renaissance(\d+)$/);
             if (!match) return null;
 
             const firstNum = parseInt(match[1], 10);
             const secondNum = parseInt(match[2], 10);
 
-            // Защита: первая цифра обязана быть равна второй, и находиться строго в диапазоне 0-300
             if (firstNum !== secondNum || firstNum < 0 || firstNum > 300) return null;
 
             const codeNum = firstNum;
 
-            // Динамическое распределение информации по твоим когортам
             if (codeNum >= 0 && codeNum <= 30) {
                 return {
                     number: codeNum,
@@ -539,15 +581,14 @@
             return null;
         }
 
-        // БАЗА ДАННЫХ ЛУКБУКА (Сюда подставляешь свои фотографии)
+        // БАЗА ДАННЫХ ЛУКБУКА
         const lookbookData = {
             "dark academia": {
                 type: "REALIZED SPACE",
                 title: "Dark Academia Library",
                 imgs: [
                     "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80",
-                    "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80",
-                    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1200&q=80"
+                    "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80"
                 ],
                 note: "В пространстве классической библиотеки ваза Spring Renaissance выступает как призматический световой акцент."
             },
@@ -555,17 +596,15 @@
                 type: "ATMOSPHERIC MOODBOARD",
                 title: "Japandi Spaces",
                 imgs: [
-                    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
-                    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80"
+                    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"
                 ],
-                note: "Японский минимализм ценит воздух и уединение. Идеальное сочетание со светлым дубом и одиночным зеленым стеблем."
+                note: "Японский минимализм ценит воздух и уединение. Идеальное сочетание со светлым дубом."
             },
             "scandinavian": {
                 type: "DESIGN INTERIOR",
                 title: "Scandinavian Clean Lines",
                 imgs: [
-                    "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80",
-                    "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=80"
+                    "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80"
                 ],
                 note: "Скандинавская эстетика уюта. Прозрачность оптического акрила идеально раскрывается при падении дневного света."
             },
@@ -573,8 +612,7 @@
                 type: "LUXURY AMBIANCE",
                 title: "Modern Classical Salon",
                 imgs: [
-                    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
-                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"
+                    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80"
                 ],
                 note: "Сочетание лепнины, высоких потолков и хай-тек акрила создает уникальный вневременной контраст."
             },
@@ -582,8 +620,7 @@
                 type: "ARCHITECTURAL CONCEPT",
                 title: "Mid-Century Modern Vibe",
                 imgs: [
-                    "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=80",
-                    "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80"
+                    "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=80"
                 ],
                 note: "Эстетика 60-х годов с теплыми ореховыми тонами мебели подчеркивает геометрию акриловой формы."
             }
@@ -591,47 +628,107 @@
 
         let currentImgIndex = 0;
 
-        // ЛОГИКА РЕЕСТРА КОДОВ
+        // ПЕРЕМЕННЫЕ ЭЛЕМЕНТОВ
+        const registryFormWrapper = document.getElementById('registry-form-wrapper');
         const registryForm = document.getElementById('registry-form');
         const registryInput = document.getElementById('registry-input');
         const registryResult = document.getElementById('registry-result');
 
-        function executeRegistrySearch() {
-            const rawInput = registryInput.value;
-            if (!rawInput) return;
+        // ЛОГИКА БЕЗОПАСНОСТИ И ОГРАНИЧЕНИЯ ВВОДА
+        function checkRegistryStatus() {
+            const savedCode = localStorage.getItem('sr_verified_code');
+            const totalAttempts = parseInt(localStorage.getItem('sr_failed_attempts') || '0', 10);
+
+            // Сценарий 1: Клиент уже успешно ввел свой код ранее
+            if (savedCode) {
+                registryFormWrapper.style.display = 'none'; // Убираем форму ввода навсегда
+                renderSuccessfulCard(savedCode);
+                return true;
+            }
+
+            // Сценарий 2: Клиент исчерпал 3 попытки брутфорса
+            if (totalAttempts >= 3) {
+                registryFormWrapper.style.display = 'none';
+                renderLockedPlate();
+                return true;
+            }
+            return false;
+        }
+
+        function renderSuccessfulCard(code) {
+            const vibe = getVibeByToken(code);
+            if (!vibe) return;
 
             registryResult.innerHTML = '';
             const wrapper = document.createElement('div');
-            wrapper.className = 'cinematic-fade';
+            wrapper.className = 'cinematic-fade is-visible';
+            wrapper.innerHTML = `
+                <div class="collector-card">
+                    <h3>STATUS: CONFIRMED GENUINE</h3>
+                    <p><b>Object Hierarchy:</b> Edition I / Drop 300</p>
+                    <p><b>Aesthetic Archetype:</b> ${vibe.archetype}</p>
+                    <p class="curator-note" style="margin-top:15px;">${vibe.note}</p>
+                    <div class="audio-player-container">
+                        <span class="audio-title">${vibe.trackTitle}</span>
+                        <audio controls src="${vibe.audioUrl}"></audio>
+                    </div>
+                </div>
+            `;
+            registryResult.appendChild(wrapper);
+        }
 
-            // Пропускаем инпут через наш парсер
+        function renderLockedPlate() {
+            registryResult.innerHTML = '';
+            const wrapper = document.createElement('div');
+            wrapper.className = 'cinematic-fade is-visible';
+            wrapper.innerHTML = `
+                <div class="fomo-plate" style="border-color: #ebdcd0;">
+                    <p style="color: #9c4a4a; font-weight: 400;">Превышено количество попыток ввода.</p>
+                    <p>Доступ к системе верификации заблокирован на данном устройстве в целях безопасности Drop 300. Если вы являетесь владельцем оригинального изделия, пожалуйста, свяжитесь с консьерж-сервисом бренда.</p>
+                    <a href="https://t.me/your_manager" target="_blank" class="fomo-btn" style="background:#9c4a4a;">Связаться с поддержкой</a>
+                </div>
+            `;
+            registryResult.appendChild(wrapper);
+        }
+
+        function executeRegistrySearch() {
+            if (checkRegistryStatus()) return;
+
+            const rawInput = registryInput.value.trim();
+            if (!rawInput) return;
+
             const vibe = getVibeByToken(rawInput);
 
             if (vibe) {
-                wrapper.innerHTML = `
-                    <div class="collector-card">
-                        <h3>STATUS: CONFIRMED GENUINE</h3>
-                        <p><b>Object Hierarchy:</b> Edition I / Drop 300</p>
-                        <p><b>Aesthetic Archetype:</b> ${vibe.archetype}</p>
-                        <p class="curator-note" style="margin-top:15px;">${vibe.note}</p>
-                        <div class="audio-player-container">
-                            <span class="audio-title">${vibe.trackTitle}</span>
-                            <audio controls src="${vibe.audioUrl}"></audio>
-                        </div>
-                    </div>
-                `;
+                // Если код верный: фиксируем в памяти и полностью блокируем будущие изменения
+                localStorage.setItem('sr_verified_code', rawInput);
+                registryFormWrapper.style.display = 'none';
+                renderSuccessfulCard(rawInput);
             } else {
-                // Если введено просто "60" или неверный токен
-                wrapper.innerHTML = `
-                    <div class="fomo-plate">
-                        <p>Доступ ограничен. Введенный идентификатор не найден в верифицированном реестре Edition I. Если вы приобрели вазу, используйте секретный буквенно-цифровой код из подтверждающего сообщения (например, 60renaissance60).</p>
-                        <a href="https://t.me/your_manager" target="_blank" class="fomo-btn">Получить токен владельца</a>
-                    </div>
-                `;
+                // Если код ошибочный: повышаем счетчик неудачных попыток
+                let attempts = parseInt(localStorage.getItem('sr_failed_attempts') || '0', 10);
+                attempts += 1;
+                localStorage.setItem('sr_failed_attempts', attempts.toString());
+
+                if (attempts >= 3) {
+                    registryFormWrapper.style.display = 'none';
+                    renderLockedPlate();
+                } else {
+                    // Обычная плашка ошибки (осталось попыток: 3 - attempts)
+                    registryResult.innerHTML = '';
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'cinematic-fade';
+                    wrapper.innerHTML = `
+                        <div class="fomo-plate">
+                            <p>Идентификатор не найден в верифицированном реестре Edition I. Пожалуйста, проверьте точность написания токена из карточки (осталось попыток: ${3 - attempts}).</p>
+                            <a href="https://t.me/your_manager" target="_blank" class="fomo-btn">Помощь консьержа</a>
+                        </div>
+                    `;
+                    registryResult.appendChild(wrapper);
+                    setTimeout(() => wrapper.classList.add('is-visible'), 50);
+                }
             }
-            
-            registryResult.appendChild(wrapper);
-            setTimeout(() => wrapper.classList.add('is-visible'), 50);
+            registryInput.value = '';
             registryInput.blur();
         }
 
@@ -660,12 +757,11 @@
             });
         });
 
-        function executeLookbookSearch() {
+        lookbookForm.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
             suggestions.style.display = 'none';
-            renderLookbook(lookbookInput.value.toLowerCase().trim());
-        }
-
-        lookbookForm.addEventListener('submit', (e) => { e.preventDefault(); executeLookbookSearch(); });
+            renderLookbook(lookbookInput.value.toLowerCase().trim()); 
+        });
 
         window.changeSlide = function(direction, maxImages, imgArray) {
             currentImgIndex += direction;
@@ -707,7 +803,7 @@
                     <div class="image-wrapper">
                         <img id="lookbook-slider-img" src="${data.imgs[0]}" alt="${data.title}">
                         
-                        <div class="slider-nav">
+                        <div class="slider-nav" style="${data.imgs.length <= 1 ? 'display:none;' : ''}">
                             <button class="slider-arrow" onclick="changeSlide(-1, ${data.imgs.length}, ${JSON.stringify(data.imgs).replace(/"/g, '&quot;')})" aria-label="Назад">
                                 <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
                             </button>
@@ -717,7 +813,7 @@
                         </div>
                     </div>
                     
-                    <div class="slider-counter" id="lookbook-counter">1 из ${data.imgs.length}</div>
+                    <div class="slider-counter" id="lookbook-counter" style="${data.imgs.length <= 1 ? 'display:none;' : ''}">1 из ${data.imgs.length}</div>
                     <p class="curator-note">${data.note}</p>
                 `;
                 lookbookResult.appendChild(wrapper);
@@ -728,12 +824,16 @@
             lookbookInput.blur();
         }
 
+        // Инициализация страницы
         document.addEventListener("DOMContentLoaded", () => {
+            // Проверяем статус блокировок/успешного входа при загрузке страницы
+            checkRegistryStatus();
+
             const fades = document.querySelectorAll('.cinematic-fade');
             fades.forEach((el, index) => {
                 setTimeout(() => {
                     el.classList.add('is-visible');
-                }, index * 200);
+                }, index * 150);
             });
         });
     </script>
