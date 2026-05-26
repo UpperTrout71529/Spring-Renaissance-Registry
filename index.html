@@ -455,33 +455,91 @@
     </main>
 
     <script>
-        // ЗАКРЫТАЯ БАЗА КЛЮЧЕЙ КЛИЕНТОВ (Токены верификации)
-        const secretRegistry = {
-            "60renaissance60": {
-                number: 60,
-                archetype: "Architectural Gallery",
-                note: "Экземпляр №60 создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.",
-                trackTitle: "Аудио-сессия: Minimalist Structural Ambient",
-                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
-            },
-            "1renaissance1": {
-                number: 1,
-                archetype: "Intellectual Noir (Кастомный номер)",
-                note: "Ваш эксклюзивный экземпляр №1 гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.",
-                trackTitle: "Аудио-сессия: Dark Jazz & Rain Session",
-                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-            },
-            "300renaissance300": {
-                number: 300,
-                archetype: "The Final Opus (Apex Number)",
-                note: "Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.",
-                trackTitle: "Аудио-сессия: The Grand Finale Ambient",
-                audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
-            }
-        };
+        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР ДЛЯ ВСЕХ 300 КЛЮЧЕЙ (БЕЗ ДУБЛИРОВАНИЯ КОДА)
+        function getVibeByToken(token) {
+            // Очищаем пробелы и переводим в нижний регистр
+            const cleanToken = token.trim().toLowerCase();
+            
+            // Проверяем паттерн: группа цифр + "renaissance" + группа цифр
+            const match = cleanToken.match(/^(\d+)renaissance(\d+)$/);
+            if (!match) return null;
 
-        // БАЗА ДАННЫХ ЛУКБУКА (Массивы фотографий для перелистывания)
-        // Чтобы поставить свои фото, просто загрузи их на GitHub и замени ссылки на имена файлов, например: ["vaza1.jpg", "vaza2.jpg"]
+            const firstNum = parseInt(match[1], 10);
+            const secondNum = parseInt(match[2], 10);
+
+            // Защита: первая цифра обязана быть равна второй, и находиться строго в диапазоне 0-300
+            if (firstNum !== secondNum || firstNum < 0 || firstNum > 300) return null;
+
+            const codeNum = firstNum;
+
+            // Динамическое распределение информации по твоим когортам
+            if (codeNum >= 0 && codeNum <= 30) {
+                return {
+                    number: codeNum,
+                    archetype: "Intellectual Noir (Кастомный номер)",
+                    note: `Ваш эксклюзивный экземпляр №${codeNum} гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.`,
+                    trackTitle: "Аудио-сессия: Dark Jazz & Rain Session",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                };
+            } 
+            else if (codeNum >= 31 && codeNum <= 70) {
+                return {
+                    number: codeNum,
+                    archetype: "Architectural Gallery",
+                    note: `Экземпляр №${codeNum} создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.`,
+                    trackTitle: "Аудио-сессия: Minimalist Structural Ambient",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+                };
+            } 
+            else if (codeNum >= 71 && codeNum <= 150) {
+                return {
+                    number: codeNum,
+                    archetype: "Classic Bookcore Edition",
+                    note: `Экземпляр №${codeNum} подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.`,
+                    trackTitle: "Аудио-сессия: Neoclassical Reading Lounge",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+                };
+            } 
+            else if (codeNum >= 151 && codeNum <= 230) {
+                return {
+                    number: codeNum,
+                    archetype: "Modern Heritage",
+                    note: `Ваш экземпляр №${codeNum} — это мост между традицией и футуризмом акриловых граней.`,
+                    trackTitle: "Аудио-сессия: Modern Heritage Ambient",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+                };
+            } 
+            else if (codeNum >= 231 && codeNum <= 270) {
+                return {
+                    number: codeNum,
+                    archetype: "Silent Luxury Cohort",
+                    note: `Эстетика тихого люкса для номера №${codeNum}. Минимум декора, максимум текстуры.`,
+                    trackTitle: "Аудио-сессия: Soft Shimmering Light",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+                };
+            } 
+            else if (codeNum >= 271 && codeNum <= 299) {
+                return {
+                    number: codeNum,
+                    archetype: "Avant-Garde Collector",
+                    note: `Предпоследняя когорта №${codeNum}. Смелые дизайнерские пространства, наполненные искусством.`,
+                    trackTitle: "Аудио-сессия: Experimental Lo-Fi Session",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+                };
+            } 
+            else if (codeNum === 300) {
+                return {
+                    number: codeNum,
+                    archetype: "The Final Opus (Apex Number)",
+                    note: `Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.`,
+                    trackTitle: "Аудио-сессия: The Grand Finale Ambient",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                };
+            }
+            return null;
+        }
+
+        // БАЗА ДАННЫХ ЛУКБУКА (Сюда подставляешь свои фотографии)
         const lookbookData = {
             "dark academia": {
                 type: "REALIZED SPACE",
@@ -531,7 +589,6 @@
             }
         };
 
-        // ГЛОБАЛЬНЫЙ ТРЕКЕР ТЕКУЩЕГО ИНДЕКСА СЛАЙДЕРА
         let currentImgIndex = 0;
 
         // ЛОГИКА РЕЕСТРА КОДОВ
@@ -540,16 +597,17 @@
         const registryResult = document.getElementById('registry-result');
 
         function executeRegistrySearch() {
-            const tokenInput = registryInput.value.trim(); // Считываем буквенный токен полностью
-            if (!tokenInput) return;
+            const rawInput = registryInput.value;
+            if (!rawInput) return;
 
             registryResult.innerHTML = '';
             const wrapper = document.createElement('div');
             wrapper.className = 'cinematic-fade';
 
-            // Проверяем наличие токена в защищенной базе данных
-            if (secretRegistry.hasOwnProperty(tokenInput)) {
-                const vibe = secretRegistry[tokenInput];
+            // Пропускаем инпут через наш парсер
+            const vibe = getVibeByToken(rawInput);
+
+            if (vibe) {
                 wrapper.innerHTML = `
                     <div class="collector-card">
                         <h3>STATUS: CONFIRMED GENUINE</h3>
@@ -563,10 +621,10 @@
                     </div>
                 `;
             } else {
-                // Плашка ограничения для неавторизованных кодов или простых чисел типа "60"
+                // Если введено просто "60" или неверный токен
                 wrapper.innerHTML = `
                     <div class="fomo-plate">
-                        <p>Доступ ограничен. Введенный идентификатор не найден в верифицированном реестре Edition I. Если вы приобрели вазу, используйте секретный буквенно-цифровой токен из карты аутентичности.</p>
+                        <p>Доступ ограничен. Введенный идентификатор не найден в верифицированном реестре Edition I. Если вы приобрели вазу, используйте секретный буквенно-цифровой код из подтверждающего сообщения (например, 60renaissance60).</p>
                         <a href="https://t.me/your_manager" target="_blank" class="fomo-btn">Получить токен владельца</a>
                     </div>
                 `;
@@ -609,7 +667,6 @@
 
         lookbookForm.addEventListener('submit', (e) => { e.preventDefault(); executeLookbookSearch(); });
 
-        // ФУНКЦИЯ СМЕНЫ ФОТО В СЛАЙДЕРЕ
         window.changeSlide = function(direction, maxImages, imgArray) {
             currentImgIndex += direction;
             if (currentImgIndex < 0) currentImgIndex = maxImages - 1;
@@ -639,11 +696,10 @@
             }
 
             if (data) {
-                currentImgIndex = 0; // Сброс индекса на первую картинку концепта
+                currentImgIndex = 0;
                 const wrapper = document.createElement('div');
                 wrapper.className = 'cinematic-fade';
                 
-                // Формируем структуру с кнопками поверх фото и счетчиком
                 wrapper.innerHTML = `
                     <span class="tag-badge">${data.type}</span>
                     <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.35rem; margin-bottom:12px; font-weight:400; text-transform: uppercase;">${data.title}</h3>
