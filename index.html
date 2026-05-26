@@ -24,7 +24,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent; /* Убирает синий квадрат при тапе на iOS */
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -38,7 +38,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Кинематографичное появление контента */
+        /* Кинематографичное появление */
         .cinematic-fade {
             opacity: 0;
             filter: blur(4px);
@@ -54,47 +54,29 @@
             transform: translateY(0);
         }
 
-        /* Шапка и Логотип */
+        /* Шапка с секцией для твоего Логотипа */
         header {
-            padding: 40px 20px 20px;
+            padding: 50px 20px 25px;
             text-align: center;
         }
 
-        .logo-container {
+        .brand-logo-container {
             display: inline-block;
-            margin-bottom: 10px;
+            max-width: 220px; /* Ограничение ширины, чтобы логотип не был гигантским */
+            width: 100%;
+            transition: opacity 0.3s ease;
         }
 
-        .logo-icon {
-            width: 28px;
-            height: 28px;
-            margin-bottom: 6px;
-            fill: var(--accent-color);
-        }
-
-        .logo-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.75rem;
-            font-weight: 300;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            color: var(--text-color);
-            line-height: 1.2;
-        }
-
-        .logo-subtext {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.6rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--muted-text);
-            margin-top: 4px;
+        .brand-logo-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
         }
 
         main {
             width: 100%;
-            max-width: 540px; /* Идеальная ширина для мобильного UI */
+            max-width: 540px;
             margin: 0 auto;
             padding: 10px 20px 40px;
         }
@@ -114,31 +96,39 @@
             text-align: center;
         }
 
-        /* Формы и Инпуты */
+        /* Премиальная бесшовная группа: Инпут + Кнопка */
+        .input-group {
+            display: flex;
+            align-items: center;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 14px;
+            padding-right: 6px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
+            transition: all 0.4s ease;
+        }
+
+        .input-group:focus-within {
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 15px rgba(191, 163, 138, 0.08);
+        }
+
         .input-wrapper {
             position: relative;
-            margin-bottom: 15px;
+            flex: 1;
         }
 
         input[type="text"] {
             width: 100%;
-            background-color: var(--input-bg);
-            border: 1px solid var(--input-border);
-            border-radius: 14px;
+            background: none;
+            border: none;
             padding: 16px 18px;
             font-family: 'Montserrat', sans-serif;
             color: var(--text-color);
             font-size: 16px; /* Защита от авто-зума на iOS */
             font-weight: 300;
             outline: none;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
-            transition: all 0.4s ease;
-            -webkit-appearance: none; /* Убирает нативные тени iOS */
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 4px 15px rgba(191, 163, 138, 0.08);
+            -webkit-appearance: none;
         }
 
         input[type="text"]::placeholder {
@@ -146,7 +136,36 @@
             font-size: 0.9rem;
         }
 
-        /* Выпадающие подсказки */
+        /* Минималистичная кнопка отправки */
+        .inline-submit-btn {
+            background: none;
+            border: none;
+            height: 46px;
+            width: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .inline-submit-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .inline-submit-btn:active {
+            color: var(--accent-color);
+            transform: translateX(2px);
+        }
+
+        /* Выпадающие подсказки лукбука */
         .suggestions-box {
             position: absolute;
             top: 100%;
@@ -172,7 +191,7 @@
         }
 
         .suggestion-item {
-            padding: 14px 18px; /* Увеличенная тач-зона */
+            padding: 14px 18px;
             cursor: pointer;
             font-size: 0.9rem;
             color: var(--text-color);
@@ -246,7 +265,7 @@
             border-radius: 8px;
         }
 
-        /* FOMO плашка ошибки */
+        /* FOMO плашка */
         .fomo-plate {
             background: #fdfcfb;
             border: 1px solid #f2ece6;
@@ -264,7 +283,7 @@
         }
 
         .fomo-btn {
-            display: block; /* Растягиваем на всю ширину для удобства нажатия пальцем */
+            display: block;
             background: var(--button-bg);
             color: var(--button-text);
             padding: 16px 20px;
@@ -281,14 +300,14 @@
             opacity: 0.85;
         }
 
-        /* Лукбук экспозиция */
+        /* Лукбук */
         .lookbook-display {
             margin-top: 25px;
         }
 
         .image-wrapper {
             width: 100%;
-            aspect-ratio: 3 / 4; /* Модный вертикальный формат вместо фиксированных 480px */
+            aspect-ratio: 3 / 4;
             max-height: 65vh;
             border-radius: 16px;
             overflow: hidden;
@@ -329,14 +348,8 @@
 <body>
 
     <header>
-        <div class="logo-container">
-            <svg class="logo-icon" viewBox="0 0 24 24">
-                <path d="M12,2C11.5,4,10,5.5,10,8C10,10.5,11.5,11,12,13C12.5,11,14,10.5,14,8C14,5.5,12.5,4,12,2Z"/>
-                <path d="M12,13C11,15,8,16,8,18C8,20,10,21,12,22C14,21,16,20,16,18C16,16,13,15,12,13Z" opacity="0.7"/>
-                <line x1="12" y1="13" x2="12" y2="22" stroke="#bfa38a" stroke-width="1"/>
-            </svg>
-            <div class="logo-text">Spring</div>
-            <div class="logo-subtext">Renaissance</div>
+        <div class="brand-logo-container">
+            <img src="logo.png" alt="Spring Renaissance Logo">
         </div>
     </header>
 
@@ -344,8 +357,16 @@
         <section class="cinematic-fade" id="registry-section">
             <h2 class="section-title">The Collector's Registry</h2>
             <form action="javascript:void(0);" id="registry-form">
-                <div class="input-wrapper">
-                    <input type="text" id="registry-input" inputmode="numeric" pattern="[0-9]*" placeholder="Введите ваш код верификации" autocomplete="off">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="registry-input" inputmode="numeric" pattern="[0-9]*" placeholder="Введите ваш код верификации" autocomplete="off">
+                    </div>
+                    <button type="submit" class="inline-submit-btn" aria-label="Поиск">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
                 </div>
             </form>
             <div id="registry-result" class="result-container"></div>
@@ -354,17 +375,25 @@
         <section class="cinematic-fade" id="lookbook-section">
             <h2 class="section-title">Interior Lookbook</h2>
             <form action="javascript:void(0);" id="lookbook-form">
-                <div class="input-wrapper">
-                    <input type="text" id="lookbook-input" placeholder="Поиск концепта интерьера..." autocomplete="off">
-                    
-                    <div id="suggestions" class="suggestions-box" style="display: none;">
-                        <span class="suggestion-title">Популярные направления:</span>
-                        <div class="suggestion-item" data-value="dark academia">Dark Academia</div>
-                        <div class="suggestion-item" data-value="japandi">Japandi (Японский минимализм)</div>
-                        <div class="suggestion-item" data-value="scandinavian">Скандинавский интерьер</div>
-                        <div class="suggestion-item" data-value="modern classic">Современная классика</div>
-                        <div class="suggestion-item" data-value="mid-century">Mid-Century Modern</div>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="lookbook-input" placeholder="Поиск концепта интерьера..." autocomplete="off">
+                        
+                        <div id="suggestions" class="suggestions-box" style="display: none;">
+                            <span class="suggestion-title">Популярные направления:</span>
+                            <div class="suggestion-item" data-value="dark academia">Dark Academia</div>
+                            <div class="suggestion-item" data-value="japandi">Japandi (Японский минимализм)</div>
+                            <div class="suggestion-item" data-value="scandinavian">Скандинавский интерьер</div>
+                            <div class="suggestion-item" data-value="modern classic">Современная классика</div>
+                            <div class="suggestion-item" data-value="mid-century">Mid-Century Modern</div>
+                        </div>
                     </div>
+                    <button type="submit" class="inline-submit-btn" aria-label="Поиск">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
                 </div>
             </form>
 
@@ -464,11 +493,11 @@
                 type: "ARCHITECTURAL CONCEPT",
                 title: "Mid-Century Modern Vibe",
                 img: "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=80",
-                note: "Эстетика 60-х годов с теплыми ореховыми тонами мебели подчерквает геометрию акриловой формы."
+                note: "Эстетика 60-х годов с теплыми ореховыми тонами мебели подчеркивает геометрию акриловой формы."
             }
         };
 
-        // ЛОГИКА РЕЕСТРА КОДОВ (С ЗАЩИТОЙ ПОД МОБИЛЬНЫЕ)
+        // ЛОГИКА РЕЕСТРА КОДОВ
         const registryForm = document.getElementById('registry-form');
         const registryInput = document.getElementById('registry-input');
         const registryResult = document.getElementById('registry-result');
@@ -507,10 +536,9 @@
             
             registryResult.appendChild(wrapper);
             setTimeout(() => wrapper.classList.add('is-visible'), 50);
-            registryInput.blur(); /* Сворачивает мобильную клавиатуру после отправки */
+            registryInput.blur();
         }
 
-        // Слушаем и нажатие Enter, и отправку мобильной формы
         registryForm.addEventListener('submit', (e) => { e.preventDefault(); executeRegistrySearch(); });
         registryInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.keyCode === 13) {
@@ -532,9 +560,8 @@
             }
         });
 
-        // На мобильных touchstart отрабатывает быстрее клика
         document.querySelectorAll('.suggestion-item').forEach(item => {
-            item.addEventListener('click', function(e) {
+            item.addEventListener('click', function() {
                 const value = this.getAttribute('data-value');
                 lookbookInput.value = this.innerText;
                 suggestions.style.display = 'none';
@@ -582,10 +609,9 @@
             } else {
                 lookbookResult.innerHTML = `<p style="font-size:0.85rem; color:var(--muted-text); text-align:center; padding-top:15px;">Стиль не найден. Попробуйте выбрать из предложенного списка.</p>`;
             }
-            lookbookInput.blur(); /* Сворачивает мобильную клавиатуру */
+            lookbookInput.blur();
         }
 
-        // Инициализация плавного появления блоков
         document.addEventListener("DOMContentLoaded", () => {
             const fades = document.querySelectorAll('.cinematic-fade');
             fades.forEach((el, index) => {
