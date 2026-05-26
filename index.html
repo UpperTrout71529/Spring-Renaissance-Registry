@@ -5,15 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring Renaissance | Collector Space</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #0b0b0b;
-            --text-color: #e5e0da;
-            --accent-color: #c5a880; /* Приглушенное золото / Розовое золото */
-            --muted-text: #7a7570;
-            --plate-bg: #121212;
+            /* Премиальная светлая палитра из формы заказа */
+            --bg-color: #fcfaf7;
+            --text-color: #211f1c;
+            --accent-color: #bfa38a; /* Благородное розовое золото / шампань */
+            --muted-text: #8c857e;
+            --input-bg: #ffffff;
+            --input-border: #e8e5e0;
+            --button-bg: #211f1c;
+            --button-text: #ffffff;
+            --card-bg: #ffffff;
         }
 
         * {
@@ -33,14 +38,14 @@
             scroll-behavior: smooth;
         }
 
-        /* Эффект замедления для всего контента */
+        /* Эффект кинематографичного проявления контента */
         .cinematic-fade {
             opacity: 0;
-            filter: blur(6px);
-            transform: translateY(15px);
-            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.5, 1),
-                        filter 1.4s cubic-bezier(0.25, 1, 0.5, 1),
-                        transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+            filter: blur(4px);
+            transform: translateY(12px);
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                        filter 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+                        transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .cinematic-fade.is-visible {
@@ -49,39 +54,64 @@
             transform: translateY(0);
         }
 
-        /* Шапка и Логотип */
+        /* Шапка и Логотип (Воссоздан по референсу формы) */
         header {
-            padding: 60px 20px 40px;
+            padding: 50px 20px 30px;
             text-align: center;
         }
 
-        .logo {
+        .logo-container {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 8px;
+            fill: var(--accent-color);
+        }
+
+        .logo-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
+            font-size: 1.9rem;
             font-weight: 300;
-            letter-spacing: 7px;
+            letter-spacing: 8px;
             text-transform: uppercase;
             color: var(--text-color);
+            line-height: 1.2;
+        }
+
+        .logo-subtext {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--muted-text);
+            margin-top: 5px;
         }
 
         main {
-            max-width: 800px;
+            max-width: 650px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Стили секций и инпутов */
+        /* Элегантные секции */
         section {
-            margin-bottom: 80px;
+            margin-bottom: 60px;
         }
 
         .section-title {
             font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            color: var(--accent-color);
-            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-color);
+            margin-bottom: 25px;
             letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
         }
 
         .input-wrapper {
@@ -89,21 +119,29 @@
             margin-bottom: 20px;
         }
 
+        /* Инпуты в стиле формы оформления заказа */
         input[type="text"] {
             width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #2a2a2a;
-            padding: 15px 0;
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 14px;
+            padding: 18px 20px;
             font-family: 'Montserrat', sans-serif;
             color: var(--text-color);
-            font-size: 1rem;
+            font-size: 0.95rem;
+            font-weight: 300;
             outline: none;
-            transition: border-color 0.8s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            transition: all 0.5s ease;
         }
 
         input[type="text"]:focus {
             border-color: var(--accent-color);
+            box-shadow: 0 4px 15px rgba(191, 163, 138, 0.1);
+        }
+
+        input[type="text"]::placeholder {
+            color: #aba49c;
         }
 
         /* Выпадающие подсказки */
@@ -112,116 +150,141 @@
             top: 100%;
             left: 0;
             width: 100%;
-            background: var(--plate-bg);
-            border: 1px solid #1a1a1a;
+            background: var(--card-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 14px;
             z-index: 10;
-            margin-top: 5px;
+            margin-top: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
         }
 
         .suggestion-title {
             display: block;
-            padding: 12px 15px 5px;
-            font-size: 0.75rem;
+            padding: 14px 20px 6px;
+            font-size: 0.7rem;
             color: var(--muted-text);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 400;
         }
 
         .suggestion-item {
-            padding: 10px 15px;
+            padding: 12px 20px;
             cursor: pointer;
             font-size: 0.9rem;
+            color: var(--text-color);
             transition: background 0.3s ease, color 0.3s ease;
         }
 
         .suggestion-item:hover {
-            background: #1a1a1a;
+            background: #faf8f5;
             color: var(--accent-color);
         }
 
-        /* Карточка верификации и FOMO плашка */
+        /* Карточка верификации (Светлая роскошь) */
         .result-container {
             margin-top: 25px;
         }
 
         .collector-card {
-            background: var(--plate-bg);
-            border: 1px solid #1a1a1a;
-            padding: 30px;
-            margin-top: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         }
 
         .collector-card h3 {
             font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 3px;
-            font-size: 1.2rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
+            letter-spacing: 2px;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #4a825f; /* Приглушенный зеленый статус успеха */
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
         .collector-card p {
             font-size: 0.9rem;
-            margin-bottom: 10px;
-            color: #ccc;
+            margin-bottom: 12px;
+            color: #54504a;
         }
 
-        .ambient-btn {
-            background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 10px 20px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
+        .collector-card p b {
+            color: var(--text-color);
+            font-weight: 400;
+        }
+
+        /* Интегрированный кастомный аудио-блок */
+        .audio-player-container {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--input-border);
+        }
+        
+        .audio-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
             letter-spacing: 1px;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.4s ease;
+            color: var(--muted-text);
+            margin-bottom: 8px;
+            display: block;
         }
 
-        .ambient-btn:hover {
-            background: var(--accent-color);
-            color: var(--bg-color);
+        audio {
+            width: 100%;
+            margin-top: 5px;
+            outline: none;
         }
 
+        /* FOMO плашка, если код не валиден */
         .fomo-plate {
-            background: var(--plate-bg);
-            border: 1px solid #221414;
-            padding: 30px;
+            background: #fdfcfb;
+            border: 1px solid #f2ece6;
+            border-radius: 18px;
+            padding: 35px;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
         }
 
         .fomo-plate p {
-            font-size: 0.95rem;
-            color: #bfa8a8;
-            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #6e675f;
+            margin-bottom: 25px;
         }
 
         .fomo-btn {
             display: inline-block;
-            background: var(--text-color);
-            color: var(--bg-color);
-            padding: 12px 30px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            padding: 16px 35px;
+            border-radius: 12px;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 400;
-            letter-spacing: 1px;
-            transition: opacity 0.3s ease;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
         .fomo-btn:hover {
             opacity: 0.9;
+            transform: translateY(-1px);
         }
 
-        /* Лукбук слайдшоу */
+        /* Лукбук экспозиция */
         .lookbook-display {
             margin-top: 30px;
         }
 
         .image-wrapper {
             width: 100%;
-            height: 450px;
+            height: 480px;
+            border-radius: 16px;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
         }
 
         .image-wrapper img {
@@ -229,44 +292,56 @@
             height: 100%;
             object-fit: cover;
             transform: scale(1);
-            transition: transform 4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .image-wrapper:hover img {
-            transform: scale(1.04);
+            transform: scale(1.03);
         }
 
         .curator-note {
             font-size: 0.9rem;
-            color: #aaa;
-            border-left: 1px solid var(--accent-color);
+            color: #59534c;
+            border-left: 2px solid var(--accent-color);
             padding-left: 15px;
             font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
         }
 
         .tag-badge {
             display: inline-block;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid var(--muted-text);
-            padding: 3px 8px;
-            color: var(--muted-text);
-            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+            border: 1px solid var(--accent-color);
+            border-radius: 6px;
+            padding: 4px 10px;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+            font-weight: 400;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">Spring Renaissance</div>
+        <div class="logo-container">
+            <svg class="logo-icon" viewBox="0 0 24 24">
+                <path d="M12,2C11.5,4,10,5.5,10,8C10,10.5,11.5,11,12,13C12.5,11,14,10.5,14,8C14,5.5,12.5,4,12,2Z"/>
+                <path d="M12,13C11,15,8,16,8,18C8,20,10,21,12,22C14,21,16,20,16,18C16,16,13,15,12,13Z" opacity="0.7"/>
+                <line x1="12" y1="13" x2="12" y2="22" stroke="#bfa38a" stroke-width="1"/>
+            </svg>
+            <div class="logo-text">Spring</div>
+            <div class="logo-subtext">Renaissance</div>
+        </div>
     </header>
 
     <main>
         <section class="cinematic-fade" id="registry-section">
             <h2 class="section-title">The Collector's Registry</h2>
             <div class="input-wrapper">
-                <input type="text" id="registry-input" placeholder="Введите код верификации сертификата подлинности" autocomplete="off">
+                <input type="text" id="registry-input" placeholder="Введите ваш код верификации сертификата" autocomplete="off">
             </div>
             <div id="registry-result" class="result-container"></div>
         </section>
@@ -274,13 +349,15 @@
         <section class="cinematic-fade" id="lookbook-section">
             <h2 class="section-title">Interior Lookbook</h2>
             <div class="input-wrapper">
-                <input type="text" id="lookbook-input" placeholder="Найти интерьер для вдохновения..." autocomplete="off">
+                <input type="text" id="lookbook-input" placeholder="Поиск концепта интерьера..." autocomplete="off">
                 
                 <div id="suggestions" class="suggestions-box" style="display: none;">
-                    <span class="suggestion-title">Популярные запросы:</span>
-                    <div class="suggestion-item" data-value="Dark Academia">Dark Academia Library</div>
-                    <div class="suggestion-item" data-value="Minimalist Gallery">Minimalist Gallery</div>
-                    <div class="suggestion-item" data-value="Japandi">Japandi Spaces</div>
+                    <span class="suggestion-title">Популярные направления:</span>
+                    <div class="suggestion-item" data-value="dark academia">Dark Academia</div>
+                    <div class="suggestion-item" data-value="japandi">Japandi (Японский минимализм)</div>
+                    <div class="suggestion-item" data-value="scandinavian">Скандинавский интерьер</div>
+                    <div class="suggestion-item" data-value="modern classic">Современная классика</div>
+                    <div class="suggestion-item" data-value="mid-century">Mid-Century Modern</div>
                 </div>
             </div>
 
@@ -289,53 +366,119 @@
     </main>
 
     <script>
-        // --- ДАННЫЕ РЕЕСТРА (Когорты кодов) ---
+        // ==========================================
+        // НАСТРОЙКА МУЗЫКИ И НАЗВАНИЙ НОМЕРОВ (КОГОРТЫ)
+        // ==========================================
+        // Здесь ты можешь изменить название каждой когорты, описание и вставить ссылки на аудио (.mp3).
         function getVibeByCode(codeNum) {
-            if (codeNum >= 1 && codeNum <= 30) {
+            
+            // КЛАСС 1: Номера от 0 до 30
+            if (codeNum >= 0 && codeNum <= 30) {
                 return {
-                    archetype: "Intellectual Noir",
-                    ambient: "Dark Jazz & Rain Session",
-                    note: "Ваш экземпляр №" + codeNum + " идеально раскрывается среди винтажных фолиантов, глубоких древесных текстур и приглушенного вечернего света."
+                    archetype: "Intellectual Noir (Кастомный номер)",
+                    note: "Ваш эксклюзивный экземпляр №" + codeNum + " гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.",
+                    trackTitle: "Аудио-сессия: Dark Jazz & Rain Session",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" // ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЙ ТРЕК
                 };
-            } else if (codeNum >= 31 && codeNum <= 70) {
+            } 
+            // КЛАСС 2: Номера от 31 до 70
+            else if (codeNum >= 31 && codeNum <= 70) {
                 return {
                     archetype: "Architectural Gallery",
-                    ambient: "Minimalist Structural Ambient",
-                    note: "Ваш экземпляр №" + codeNum + " спроектирован для открытых пространств. Рекомендуется падение естественного света под углом 45° на боковые грани акрилового тома."
+                    note: "Экземпляр №" + codeNum + " создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.",
+                    trackTitle: "Аудио-сессия: Minimalist Structural Ambient",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" // ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЙ ТРЕК
                 };
-            } else if (codeNum >= 71 && codeNum <= 300) {
+            } 
+            // КЛАСС 3: Номера от 71 до 150
+            else if (codeNum >= 71 && codeNum <= 150) {
                 return {
-                    archetype: "Classic Bookcore",
-                    ambient: "Neoclassical Reading Lounge",
-                    note: "Ваш экземпляр №" + codeNum + " подчеркивает архитектонику классических домашних библиотек. Идеальное соседство — альбомы по искусству и монохромная графика."
+                    archetype: "Classic Bookcore Edition",
+                    note: "Экземпляр №" + codeNum + " подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.",
+                    trackTitle: "Аудио-сессия: Neoclassical Reading Lounge",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" // ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЙ ТРЕК
+                };
+            } 
+            // КЛАСС 4: Номера от 151 до 230
+            else if (codeNum >= 151 && codeNum <= 230) {
+                return {
+                    archetype: "Modern Heritage",
+                    note: "Ваш экземпляр №" + codeNum + " — это мост между традицией и футуризмом акриловых граней.",
+                    trackTitle: "Аудио-сессия: Modern Heritage Ambient",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" // ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЙ ТРЕК
+                };
+            } 
+            // КЛАСС 5: Номера от 231 до 270
+            else if (codeNum >= 231 && codeNum <= 270) {
+                return {
+                    archetype: "Silent Luxury Cohort",
+                    note: "Эстетика тихого люкса для номера №" + codeNum + ". Минимум декора, максимум текстуры.",
+                    trackTitle: "Аудио-сессия: Soft Shimmering Light",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" // ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЙ ТРЕК
+                };
+            } 
+            // КЛАСС 6: Номера от 271 до 299
+            else if (codeNum >= 271 && codeNum <= 299) {
+                return {
+                    archetype: "Avant-Garde Collector",
+                    note: "Предпоследняя когорта №" + codeNum + ". Смелые дизайнерские пространства, наполненные искусством.",
+                    trackTitle: "Аудио-сессия: Experimental Lo-Fi Session",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" // ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЙ ТРЕК
+                };
+            } 
+            // КЛАСС 7: Ровно 300
+            else if (codeNum === 300) {
+                return {
+                    archetype: "The Final Opus (Apex Number)",
+                    note: "Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.",
+                    trackTitle: "Аудио-сессия: The Grand Finale Ambient",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" // ЗАМЕНИ ЭТУ ССЫЛКУ НА СВОЙ ТРЕК
                 };
             }
             return null;
         }
 
-        // --- ДАННЫЕ ЛУКБУКА (Стили интерьеров) ---
+        // ==========================================
+        // НАСТРОЙКА КАРТИНОК ЛУКБУКА (ИНТЕРЬЕРЫ)
+        // ==========================================
+        // Сюда ты можешь вставить любые ссылки на свои картинки вместо Unsplash ссылок в параметр img.
         const lookbookData = {
             "dark academia": {
                 type: "REALIZED SPACE",
                 title: "Dark Academia Library",
-                img: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80",
-                note: "В пространстве классической библиотеки ваза Spring Renaissance выступает как световой акцент. Наполнение: скульптурные сухоцветы или ветки глубоких оттенков."
-            },
-            "minimalist gallery": {
-                type: "REALIZED SPACE",
-                title: "Minimalist Gallery",
-                img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-                note: "Музейная чистота линий. Ваза располагается на бетонных, мраморных или матовых однотонных поверхностях. Максимально раскрывает прозрачность оптического акрила."
+                img: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80", // ТВОЯ ССЫЛКА НА КАРТИНКУ ТУТ
+                note: "В пространстве классической библиотеки ваза Spring Renaissance выступает как призматический световой акцент."
             },
             "japandi": {
                 type: "ATMOSPHERIC MOODBOARD",
                 title: "Japandi Spaces",
-                img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
-                note: "Концепт интеграции: Японский минимализм ценит воздух. Ваза ставится в уединенной зоне созерцания на светлые породы дерева (ясень, дуб) рядом с одиночным зеленым стеблем."
+                img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80", // ТВОЯ ССЫЛКА НА КАРТИНКУ ТУТ
+                note: "Японский минимализм ценит воздух и уединение. Идеальное сочетание со светлым дубом и одиночным зеленым стеблем."
+            },
+            "scandinavian": {
+                type: "DESIGN INTERIOR",
+                title: "Scandinavian Clean Lines",
+                img: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80", // ТВОЯ ССЫЛКА НА КАРТИНКУ ТУТ
+                note: "Скандинавская эстетика уюта. Прозрачность оптического акрила идеально раскрывается при падении дневного света."
+            },
+            "modern classic": {
+                type: "LUXURY AMBIANCE",
+                title: "Modern Classical Salon",
+                img: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80", // ТВОЯ ССЫЛКА НА КАРТИНКУ ТУТ
+                note: "Сочетание лепнины, высоких потолков и хай-тек акрила создает уникальный вневременной контраст."
+            },
+            "mid-century": {
+                type: "ARCHITECTURAL CONCEPT",
+                title: "Mid-Century Modern Vibe",
+                img: "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=80", // ТВОЯ ССЫЛКА НА КАРТИНКУ ТУТ
+                note: "Эстетика 60-х годов с теплыми ореховыми тонами мебели подчеркивает геометрию акриловой формы."
             }
         };
 
-        // Логика Реестра
+
+        // --- ВНУТРЕННЯЯ ЛОГИКА СТРАНИЦЫ (НЕ МЕНЯТЬ БЕЗ НЕОБХОДИМОСТИ) ---
+        
+        // Логика работы Реестра кодов
         const registryInput = document.getElementById('registry-input');
         const registryResult = document.getElementById('registry-result');
 
@@ -345,11 +488,10 @@
                 const codeNum = parseInt(val);
                 registryResult.innerHTML = '';
 
-                // Создаем плашку с эффектом проявления
                 const wrapper = document.createElement('div');
                 wrapper.className = 'cinematic-fade';
 
-                if (!isNaN(codeNum) && codeNum >= 1 && codeNum <= 300) {
+                if (!isNaN(codeNum) && codeNum >= 0 && codeNum <= 300) {
                     const vibe = getVibeByCode(codeNum);
                     wrapper.innerHTML = `
                         <div class="collector-card">
@@ -357,13 +499,16 @@
                             <p><b>Object Hierarchy:</b> Edition I / Drop 300</p>
                             <p><b>Aesthetic Archetype:</b> ${vibe.archetype}</p>
                             <p class="curator-note" style="margin-top:15px;">${vibe.note}</p>
-                            <button class="ambient-btn" onclick="alert('Аудио-сессия подгружается...')">[ Play ${vibe.ambient} ]</button>
+                            <div class="audio-player-container">
+                                <span class="audio-title">${vibe.trackTitle}</span>
+                                <audio controls src="${vibe.audioUrl}"></audio>
+                            </div>
                         </div>
                     `;
                 } else {
                     wrapper.innerHTML = `
                         <div class="fomo-plate">
-                            <p>Введенный код не найден в реестре Edition I. Этот цифровой сектор зарезервирован исключительно для владельцев лимитированной серии.</p>
+                            <p>Введенный код не найден в реестре Edition I. Этот премиальный сектор зарезервирован исключительно для владельцев лимитированной серии.</p>
                             <a href="#" class="fomo-btn">Стать владельцем Edition I</a>
                         </div>
                     `;
@@ -374,7 +519,7 @@
             }
         });
 
-        // Логика подсказок Лукбука
+        // Логика поисковых подсказок Лукбука
         const lookbookInput = document.getElementById('lookbook-input');
         const suggestions = document.getElementById('suggestions');
         const lookbookResult = document.getElementById('lookbook-result');
@@ -383,24 +528,21 @@
             suggestions.style.display = 'block';
         });
 
-        // Закрытие подсказок при клике мимо
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.input-wrapper')) {
                 suggestions.style.display = 'none';
             }
         });
 
-        // Клик по подсказке
         document.querySelectorAll('.suggestion-item').forEach(item => {
             item.addEventListener('click', function() {
                 const value = this.getAttribute('data-value');
                 lookbookInput.value = this.innerText;
                 suggestions.style.display = 'none';
-                renderLookbook(value.toLowerCase());
+                renderLookbook(value);
             });
         });
 
-        // Поиск по Enter
         lookbookInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 suggestions.style.display = 'none';
@@ -410,9 +552,8 @@
 
         function renderLookbook(query) {
             lookbookResult.innerHTML = '';
-            
-            // Ищем совпадение по ключам
             let data = null;
+            
             for (let key in lookbookData) {
                 if (key.includes(query) || query.includes(key)) {
                     data = lookbookData[key];
@@ -425,7 +566,7 @@
                 wrapper.className = 'cinematic-fade';
                 wrapper.innerHTML = `
                     <span class="tag-badge">${data.type}</span>
-                    <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.6rem; margin-bottom:15px; font-weight:300;">${data.title}</h3>
+                    <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.5rem; margin-bottom:15px; font-weight:400; text-transform: uppercase;">${data.title}</h3>
                     <div class="image-wrapper">
                         <img src="${data.img}" alt="${data.title}">
                     </div>
@@ -434,17 +575,17 @@
                 lookbookResult.appendChild(wrapper);
                 setTimeout(() => wrapper.classList.add('is-visible'), 50);
             } else {
-                lookbookResult.innerHTML = `<p style="font-size:0.9rem; color:var(--muted-text);">Стиль не найден. Попробуйте ввести "сканди", "dark" или воспользуйтесь подсказками.</p>`;
+                lookbookResult.innerHTML = `<p style="font-size:0.9rem; color:var(--muted-text); text-align:center; padding-top:20px;">Стиль не найден. Попробуйте выбрать из предложенного списка.</p>`;
             }
         }
 
-        // Анимация появления основных блоков при загрузкие страницы
+        // Плавный запуск интерфейса
         document.addEventListener("DOMContentLoaded", () => {
             const fades = document.querySelectorAll('.cinematic-fade');
             fades.forEach((el, index) => {
                 setTimeout(() => {
                     el.classList.add('is-visible');
-                }, index * 300); // Поочередное появление блоков
+                }, index * 250);
             });
         });
     </script>
