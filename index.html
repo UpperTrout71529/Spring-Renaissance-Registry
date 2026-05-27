@@ -258,8 +258,8 @@
         }
 
         .audio-player-container {
-            margin-top: 20px;
-            padding-top: 15px;
+            margin-top: 25px;
+            padding-top: 20px;
             border-top: 1px solid var(--input-border);
         }
         
@@ -268,16 +268,9 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--muted-text);
-            margin-bottom: 8px;
+            margin-bottom: 14px;
             display: block;
             line-height: 1.4;
-        }
-
-        audio {
-            width: 100%;
-            margin-top: 5px;
-            outline: none;
-            border-radius: 8px;
         }
 
         .fomo-plate {
@@ -552,7 +545,7 @@
             });
         });
 
-        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР
+        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР С ССЫЛКАМИ НА ЯНДЕКС МУЗЫКУ
         function getVibeByToken(token) {
             const cleanToken = token.trim().toLowerCase();
             const match = cleanToken.match(/^(\d+)renaissance(\d+)$/);
@@ -565,13 +558,13 @@
 
             const codeNum = firstNum;
 
+            // СЮДА ВСТАВЛЯЮТСЯ ССЫЛКИ ИЗ АТРИБУТА SRC СКОПИРОВАННОГО HTML-КОДА ЯНДЕКС МУЗЫКИ
             if (codeNum >= 0 && codeNum <= 30) {
                 return {
                     number: codeNum,
                     archetype: "Intellectual Noir<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Интеллектуальный нуар</small>",
                     note: `Ваш эксклюзивный экземпляр №${codeNum} гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.`,
-                    trackTitle: "Аудио-сессия: Dark Jazz & Rain Session<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Дарк-джаз и шум дождя</small>",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/13964295/track/78236201" // Пример ссылки на трек
                 };
             } 
             else if (codeNum >= 31 && codeNum <= 70) {
@@ -579,8 +572,7 @@
                     number: codeNum,
                     archetype: "Architectural Gallery<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Архитектурная галерея</small>",
                     note: `Экземпляр №${codeNum} создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.`,
-                    trackTitle: "Аудио-сессия: Minimalist Structural Ambient<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Минималистичный структурный эмбиент</small>",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/7315401/track/27965" 
                 };
             } 
             else if (codeNum >= 71 && codeNum <= 150) {
@@ -588,8 +580,7 @@
                     number: codeNum,
                     archetype: "Classic Bookcore Edition<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Классическое книжное издание</small>",
                     note: `Экземпляр №${codeNum} подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.`,
-                    trackTitle: "Аудио-сессия: Neoclassical Reading Lounge<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Неоклассическая гостиная для чтения</small>",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/2986357/track/25343639"
                 };
             } 
             else if (codeNum >= 151 && codeNum <= 230) {
@@ -597,8 +588,7 @@
                     number: codeNum,
                     archetype: "Modern Heritage<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Современное наследие</small>",
                     note: `Ваш экземпляр №${codeNum} — это мост между традицией и футуризмом акриловых граней.`,
-                    trackTitle: "Аудио-сессия: Modern Heritage Ambient<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Эмбиент современного наследия</small>",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/12710111/track/58264940"
                 };
             } 
             else if (codeNum >= 231 && codeNum <= 270) {
@@ -606,8 +596,7 @@
                     number: codeNum,
                     archetype: "Silent Luxury Cohort<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Когорта тихого люкса</small>",
                     note: `Эстетика тихого люкса для номера №${codeNum}. Минимум декора, максимум текстуры.`,
-                    trackTitle: "Аудио-сессия: Soft Shimmering Light<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Мягкий мерцающий свет</small>",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/13964295/track/78236201"
                 };
             } 
             else if (codeNum >= 271 && codeNum <= 299) {
@@ -615,8 +604,7 @@
                     number: codeNum,
                     archetype: "Avant-Garde Collector<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Авангардный коллекционер</small>",
                     note: `Предпоследняя когорта №${codeNum}. Смелые дизайнерские пространства, наполненные искусством.`,
-                    trackTitle: "Аудио-сессия: Experimental Lo-Fi Session<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Экспериментальная лоу-фай сессия</small>",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/242064/track/2444104"
                 };
             } 
             else if (codeNum === 300) {
@@ -624,8 +612,7 @@
                     number: codeNum,
                     archetype: "The Final Opus (Apex Number)<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Финальный опус (Высшая точка коллекции)</small>",
                     note: `Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.`,
-                    trackTitle: "Аудио-сессия: The Grand Finale Ambient<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Финальный торжественный эмбиент</small>",
-                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/9172879/track/795836"
                 };
             }
             return null;
@@ -703,6 +690,7 @@
             return false;
         }
 
+        // РЕНДЕР КАРТОЧКИ С ИНТЕГРИРОВАННЫМ ФРЕЙМОМ ЯНДЕКС МУЗЫКИ
         function renderSuccessfulCard(code) {
             const vibe = getVibeByToken(code);
             if (!vibe) return;
@@ -710,15 +698,28 @@
             registryResult.innerHTML = '';
             const wrapper = document.createElement('div');
             wrapper.className = 'cinematic-fade is-visible';
+            
+            // Динамическая адаптация высоты фрейма: для трека оптимально 150px-180px, для плейлистов — 450px
+            const isPlaylist = vibe.yandexWidgetUrl.includes('playlist');
+            const widgetHeight = isPlaylist ? "450px" : "180px";
+
             wrapper.innerHTML = `
                 <div class="collector-card">
                     <h3>STATUS: CONFIRMED<br><span style="font-size: 0.65em; color: var(--muted-text); display: block; margin-top: 4px; font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 1px;">Статус: Подтверждено</span></h3>
                     <p><b>Object Hierarchy / Иерархия объекта:</b> Volume I / Drop 300 <span style="font-size: 0.85em; color: var(--muted-text);">(Том I / Дроп 300)</span></p>
                     <p><b>Aesthetic Archetype / Эстетический архетип:</b><br>${vibe.archetype}</p>
-                    <p class="curator-note" style="margin-top:15px;">${vibe.note}</p>
+                    <p class="curator-note" style="margin-top:15px; margin-bottom:20px;">${vibe.note}</p>
+                    
                     <div class="audio-player-container">
-                        <span class="audio-title">${vibe.trackTitle}</span>
-                        <audio controls src="${vibe.audioUrl}"></audio>
+                        <span class="audio-title">Аудио-сопровождение пространства</span>
+                        
+                        <iframe 
+                            frameborder="0" 
+                            style="border: none; width: 100%; height: ${widgetHeight}; border-radius: 12px; background: transparent;" 
+                            width="100%" 
+                            height="${widgetHeight}" 
+                            src="${vibe.yandexWidgetUrl}">
+                        </iframe>
                     </div>
                 </div>
             `;
@@ -877,6 +878,9 @@
                 setTimeout(() => wrapper.classList.add('is-visible'), 50);
             }
         }
+
+        // Проверка статуса при загрузке страницы
+        checkRegistryStatus();
     </script>
 </body>
 </html>
