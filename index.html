@@ -265,7 +265,7 @@
             align-items: center;
             perspective: 1000px;
             height: 240px;
-            background: radial-gradient(circle, rgba(24cf, 245, 240, 0.4) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(245, 240, 235, 0.4) 0%, transparent 70%);
             border-radius: 12px;
         }
 
@@ -278,7 +278,6 @@
             box-shadow: inset -3px 0 10px rgba(0,0,0,0.01);
             backdrop-filter: blur(4px);
             position: relative;
-            /* Динамическое смещение drop-shadow на основе CSS-переменных */
             filter: drop-shadow(var(--sh-x, 6px) var(--sh-y, 12px) 14px rgba(0, 0, 0, 0.13));
             transition: filter 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
@@ -293,6 +292,23 @@
             background: rgba(0, 0, 0, 0.02);
             border-radius: 4px 0 0 4px;
             border-right: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* АНИМАЦИЯ СИНХРОНИЗАЦИИ */
+        @keyframes geoPulse {
+            0% { transform: scale(0.9); opacity: 0.4; }
+            50% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.4; }
+        }
+
+        .live-pulse-beacon {
+            width: 6px;
+            height: 6px;
+            background-color: #4a825f;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            animation: geoPulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
         }
 
         .fomo-plate {
@@ -632,7 +648,7 @@
             return null;
         }
 
-        // ГЕНЕРАТОР ГЕОГРАФИЧЕСКИХ ЛОКАЦИЙ ДЛЯ РЕЕСТРА ВЛАДЕЛЬЦЕВ
+        // ГЕНЕРАТОР ПРОШЛЫХ ГЕОГРАФИЧЕСКИХ ЛОКАЦИЙ ДЛЯ ИМИТАЦИИ ЦЕПОЧКИ
         function getMockLocation(num) {
             const locations = [
                 "Москва, Патриаршие пруды", "Санкт-Петербург, Каменный остров", 
@@ -717,7 +733,54 @@
             return false;
         }
 
-        // ОБНОВЛЕННЫЙ РЕНДЕР КАРТОЧКИ УСПЕШНОЙ ВЕРИФИКАЦИИ
+        // АСИНХРОННЫЙ ЗАПРОС РЕАЛЬНОЙ ГЕОЛОКАЦИИ ПО КОРДИНАТАМ БРАУЗЕРА
+        function syncLiveGeolocation(num) {
+            const locLabel = document.getElementById('current-user-location');
+            if (!locLabel) return;
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    
+                    try {
+                        // Реверсивный бесшовный геокодинг на базе OpenStreetMap (языковой пакет - RU)
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&accept-language=ru`);
+                        const data = await response.json();
+                        
+                        if (data && data.address) {
+                            const city = data.address.city || data.address.town || data.address.village || data.address.state || "Premium Location";
+                            const country = data.address.country || "";
+                            
+                            locLabel.style.opacity = '0';
+                            setTimeout(() => {
+                                locLabel.textContent = `${city}${country ? ', ' + country : ''}`;
+                                locLabel.style.opacity = '1';
+                            }, 300);
+                        } else {
+                            fallbackToDefaultLocation(num, locLabel);
+                        }
+                    } catch (err) {
+                        fallbackToDefaultLocation(num, locLabel);
+                    }
+                }, (error) => {
+                    // Отклонение доступа или таймаут
+                    fallbackToDefaultLocation(num, locLabel);
+                }, { timeout: 7000 });
+            } else {
+                fallbackToDefaultLocation(num, locLabel);
+            }
+        }
+
+        function fallbackToDefaultLocation(num, element) {
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.textContent = getMockLocation(num);
+                element.style.opacity = '1';
+            }, 300);
+        }
+
+        // МОДИФИЦИРОВАННЫЙ РЕНДЕР КАРТОЧКИ (ИСКЛЮЧЕН СЛЕДУЮЩИЙ НОМЕР)
         function renderSuccessfulCard(code) {
             const vibe = getVibeByToken(code);
             if (!vibe) return;
@@ -728,7 +791,6 @@
             
             const currentNum = vibe.number;
             const prevNum = currentNum - 1;
-            const nextNum = currentNum + 1;
 
             wrapper.innerHTML = `
                 <div class="collector-card">
@@ -742,28 +804,27 @@
                     </div>
 
                     <div style="margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
-                        <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted-text); display: block; margin-bottom: 15px; font-weight: 400;">Spatial Registry / Географическое распределение</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted-text); font-weight: 400;">Spatial Registry / Живой поток распределения</span>
+                            <span style="display: inline-flex; align-items: center; font-size: 0.6rem; text-transform: uppercase; color: #4a825f; letter-spacing: 1px; font-weight: 400;">
+                                <span class="live-pulse-beacon"></span>
+                                Live Sync
+                            </span>
+                        </div>
                         
                         <div style="display: flex; flex-direction: column; gap: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem;">
                             
                             ${prevNum >= 1 ? `
-                                <div style="display: flex; justify-content: space-between; color: var(--muted-text); opacity: 0.45;">
+                                <div style="display: flex; justify-content: space-between; color: var(--muted-text); opacity: 0.45; filter: blur(0.3px);">
                                     <span>№${String(prevNum).padStart(3, '0')}</span>
                                     <span style="font-weight: 300;">${getMockLocation(prevNum)}</span>
                                 </div>
                             ` : ''}
 
-                            <div style="display: flex; justify-content: space-between; color: #111; font-weight: 400; background: rgba(0,0,0,0.02); padding: 10px 14px; border-radius: 8px; border-left: 2px solid var(--accent-color);">
-                                <span style="font-weight: 500;">№${String(currentNum).padStart(3, '0')} (Вы)</span>
-                                <span style="font-weight: 400;">${getMockLocation(currentNum)}</span>
+                            <div style="display: flex; justify-content: space-between; color: #111; font-weight: 400; background: rgba(0,0,0,0.01); padding: 11px 14px; border-radius: 10px; border-left: 2px solid var(--text-color);">
+                                <span style="font-weight: 500; letter-spacing: 0.5px;">№${String(currentNum).padStart(3, '0')} (Вы)</span>
+                                <span style="font-weight: 400; color: var(--text-color); transition: opacity 0.4s ease;" id="current-user-location">Определение геопозиции...</span>
                             </div>
-
-                            ${nextNum <= 300 ? `
-                                <div style="display: flex; justify-content: space-between; color: var(--muted-text); opacity: 0.45;">
-                                    <span>№${String(nextNum).padStart(3, '0')}</span>
-                                    <span style="font-weight: 300;">${getMockLocation(nextNum)}</span>
-                                </div>
-                            ` : ''}
                             
                         </div>
                     </div>
@@ -771,29 +832,26 @@
             `;
             registryResult.appendChild(wrapper);
 
-            // ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ТЕНЕЙ СРАЗУ ПОСЛЕ ОТРИСОВКИ
+            // ЗАПУСК ИНТЕРАКТИВОВ И ОПРЕДЕЛЕНИЯ ЛОКАЦИИ В РЕАЛЬНОМ ВРЕМЕНИ
             initShadowMagic();
+            syncLiveGeolocation(currentNum);
         }
 
         function initShadowMagic() {
             const vase = document.getElementById('vase-object');
             if (!vase) return;
 
-            // Настольные ПК: Движение курсора
             window.addEventListener('mousemove', (e) => {
                 const x = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
                 const y = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
-                
-                // Рассчитываем деликатные смещения для утонченного эффекта
                 vase.style.setProperty('--sh-x', `${x * 24 + 6}px`);
                 vase.style.setProperty('--sh-y', `${y * 24 + 12}px`);
             });
 
-            // Мобильные устройства: Показания гироскопа
             if (window.DeviceOrientationEvent) {
                 window.addEventListener('deviceorientation', (e) => {
-                    const gamma = e.gamma; // Наклон влево/вправо [-90, 90]
-                    const beta = e.beta;   // Наклон вперед/назад [-180, 180]
+                    const gamma = e.gamma;
+                    const beta = e.beta;
 
                     if (gamma && beta) {
                         const moveX = Math.min(Math.max(gamma / 2.5, -16), 16) + 6;
@@ -888,7 +946,7 @@
             if(lookbookData[query]) {
                 renderLookbookItem(query);
             } else {
-                renderLookbookItem("japandi"); // Дефолтный откат
+                renderLookbookItem("japandi");
             }
             suggestions.style.display = 'none';
         });
@@ -957,7 +1015,6 @@
             }
         });
 
-        // Проверка статуса при первичной загрузке страницы
         checkRegistryStatus();
     </script>
 </body>
