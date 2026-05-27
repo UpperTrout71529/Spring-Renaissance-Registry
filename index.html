@@ -95,6 +95,17 @@
             text-align: center;
             cursor: pointer;
         }
+        
+        .section-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.55rem;
+            font-weight: 300;
+            color: var(--muted-text);
+            display: block;
+            margin-top: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
         .input-group {
             display: flex;
@@ -194,6 +205,7 @@
             color: var(--text-color);
             border-bottom: 1px solid #fcfaf7;
             transition: background 0.2s ease;
+            line-height: 1.4;
         }
 
         .suggestion-item:last-child {
@@ -203,6 +215,13 @@
         .suggestion-item:active {
             background: #faf8f5;
             color: var(--accent-color);
+        }
+        
+        .suggestion-sub {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--muted-text);
+            margin-top: 2px;
         }
 
         .result-container {
@@ -219,17 +238,18 @@
 
         .collector-card h3 {
             font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 1.5px;
+            默默_spacing: 1.5px;
             font-size: 1.15rem;
             font-weight: 500;
             color: #4a825f;
             margin-bottom: 15px;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
 
         .collector-card p {
             font-size: 0.85rem;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: #54504a;
         }
 
@@ -251,6 +271,7 @@
             color: var(--muted-text);
             margin-bottom: 8px;
             display: block;
+            line-height: 1.4;
         }
 
         audio {
@@ -372,9 +393,11 @@
             letter-spacing: 1px;
             border: 1px solid var(--accent-color);
             border-radius: 6px;
-            padding: 4px 8px;
+            padding: 6px 10px;
             color: var(--accent-color);
-            margin-bottom: 10px;
+            margin-bottom: 14px;
+            text-align: left;
+            line-height: 1.3;
         }
 
         footer {
@@ -437,7 +460,10 @@
 
     <main>
         <section class="cinematic-fade" id="registry-section">
-            <h2 class="section-title" id="registry-title">The Collector's Registry</h2>
+            <h2 class="section-title" id="registry-title">
+                The Collector's Registry
+                <span class="section-subtitle">Реестр владельцев коллекции</span>
+            </h2>
             
             <div id="registry-form-wrapper">
                 <form action="javascript:void(0);" id="registry-form">
@@ -459,7 +485,10 @@
         </section>
 
         <section class="cinematic-fade" id="lookbook-section">
-            <h2 class="section-title">Interior Lookbook</h2>
+            <h2 class="section-title">
+                Interior Lookbook
+                <span class="section-subtitle">Книга интерьерных концепций</span>
+            </h2>
             <form action="javascript:void(0);" id="lookbook-form">
                 <div class="input-group">
                     <div class="input-wrapper">
@@ -467,11 +496,26 @@
                         
                         <div id="suggestions" class="suggestions-box" style="display: none;">
                             <span class="suggestion-title">Популярные направления:</span>
-                            <div class="suggestion-item" data-value="dark academia">Dark Academia</div>
-                            <div class="suggestion-item" data-value="japandi">Japandi (Японский минимализм)</div>
-                            <div class="suggestion-item" data-value="scandinavian">Скандинавский интерьер</div>
-                            <div class="suggestion-item" data-value="modern classic">Современная классика</div>
-                            <div class="suggestion-item" data-value="mid-century">Mid-Century Modern</div>
+                            <div class="suggestion-item" data-value="dark academia">
+                                Dark Academia
+                                <span class="suggestion-sub">Темная академия</span>
+                            </div>
+                            <div class="suggestion-item" data-value="japandi">
+                                Japandi
+                                <span class="suggestion-sub">Японский минимализм</span>
+                            </div>
+                            <div class="suggestion-item" data-value="scandinavian">
+                                Scandinavian Interior
+                                <span class="suggestion-sub">Скандинавский стиль</span>
+                            </div>
+                            <div class="suggestion-item" data-value="modern classic">
+                                Modern Classic
+                                <span class="suggestion-sub">Современная классика</span>
+                            </div>
+                            <div class="suggestion-item" data-value="mid-century">
+                                Mid-Century Modern
+                                <span class="suggestion-sub">Модерн середины века</span>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="inline-submit-btn" aria-label="Поиск">
@@ -516,63 +560,63 @@
             if (codeNum >= 0 && codeNum <= 30) {
                 return {
                     number: codeNum,
-                    archetype: "Intellectual Noir (Кастомный номер)",
+                    archetype: "Intellectual Noir<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Интеллектуальный нуар</small>",
                     note: `Ваш эксклюзивный экземпляр №${codeNum} гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.`,
-                    trackTitle: "Аудио-сессия: Dark Jazz & Rain Session",
+                    trackTitle: "Аудио-сессия: Dark Jazz & Rain Session<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Дарк-джаз и шум дождя</small>",
                     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                 };
             } 
             else if (codeNum >= 31 && codeNum <= 70) {
                 return {
                     number: codeNum,
-                    archetype: "Architectural Gallery",
+                    archetype: "Architectural Gallery<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Архитектурная галерея</small>",
                     note: `Экземпляр №${codeNum} создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.`,
-                    trackTitle: "Аудио-сессия: Minimalist Structural Ambient",
+                    trackTitle: "Аудио-сессия: Minimalist Structural Ambient<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Минималистичный структурный эмбиент</small>",
                     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                 };
             } 
             else if (codeNum >= 71 && codeNum <= 150) {
                 return {
                     number: codeNum,
-                    archetype: "Classic Bookcore Edition",
+                    archetype: "Classic Bookcore Edition<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Классическое книжное издание</small>",
                     note: `Экземпляр №${codeNum} подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.`,
-                    trackTitle: "Аудио-сессия: Neoclassical Reading Lounge",
+                    trackTitle: "Аудио-сессия: Neoclassical Reading Lounge<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Неоклассическая гостиная для чтения</small>",
                     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
                 };
             } 
             else if (codeNum >= 151 && codeNum <= 230) {
                 return {
                     number: codeNum,
-                    archetype: "Modern Heritage",
+                    archetype: "Modern Heritage<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Современное наследие</small>",
                     note: `Ваш экземпляр №${codeNum} — это мост между традицией и футуризмом акриловых граней.`,
-                    trackTitle: "Аудио-сессия: Modern Heritage Ambient",
+                    trackTitle: "Аудио-сессия: Modern Heritage Ambient<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Эмбиент современного наследия</small>",
                     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
                 };
             } 
             else if (codeNum >= 231 && codeNum <= 270) {
                 return {
                     number: codeNum,
-                    archetype: "Silent Luxury Cohort",
+                    archetype: "Silent Luxury Cohort<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Когорта тихого люкса</small>",
                     note: `Эстетика тихого люкса для номера №${codeNum}. Минимум декора, максимум текстуры.`,
-                    trackTitle: "Аудио-сессия: Soft Shimmering Light",
+                    trackTitle: "Аудио-сессия: Soft Shimmering Light<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Мягкий мерцающий свет</small>",
                     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
                 };
             } 
             else if (codeNum >= 271 && codeNum <= 299) {
                 return {
                     number: codeNum,
-                    archetype: "Avant-Garde Collector",
+                    archetype: "Avant-Garde Collector<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Авангардный коллекционер</small>",
                     note: `Предпоследняя когорта №${codeNum}. Смелые дизайнерские пространства, наполненные искусством.`,
-                    trackTitle: "Аудио-сессия: Experimental Lo-Fi Session",
+                    trackTitle: "Аудио-сессия: Experimental Lo-Fi Session<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Экспериментальная лоу-фай сессия</small>",
                     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
                 };
             } 
             else if (codeNum === 300) {
                 return {
                     number: codeNum,
-                    archetype: "The Final Opus (Apex Number)",
+                    archetype: "The Final Opus (Apex Number)<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Финальный опус (Высшая точка коллекции)</small>",
                     note: `Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.`,
-                    trackTitle: "Аудио-сессия: The Grand Finale Ambient",
+                    trackTitle: "Аудио-сессия: The Grand Finale Ambient<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Финальный торжественный эмбиент</small>",
                     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
                 };
             }
@@ -582,8 +626,8 @@
         // БАЗА ДАННЫХ ЛУКБУКА
         const lookbookData = {
             "dark academia": {
-                type: "REALIZED SPACE",
-                title: "Dark Academia Library",
+                type: "REALIZED SPACE<br><span style='font-size:0.85em; opacity:0.7; display:block; margin-top:2px;'>Реализованное пространство</span>",
+                title: "Dark Academia Library<br><span style='font-size: 0.55em; color: var(--muted-text); display: block; margin-top: 4px; font-family: Montserrat, sans-serif; font-weight:300;'>Библиотека в стиле Дарк Академия</span>",
                 imgs: [
                     "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=80",
                     "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80"
@@ -591,32 +635,32 @@
                 note: "В пространстве классической библиотеки ваза Spring Renaissance выступает как призматический световой акцент."
             },
             "japandi": {
-                type: "ATMOSPHERIC MOODBOARD",
-                title: "Japandi Spaces",
+                type: "ATMOSPHERIC MOODBOARD<br><span style='font-size:0.85em; opacity:0.7; display:block; margin-top:2px;'>Атмосферный мудборд</span>",
+                title: "Japandi Spaces<br><span style='font-size: 0.55em; color: var(--muted-text); display: block; margin-top: 4px; font-family: Montserrat, sans-serif; font-weight:300;'>Пространства Джапанди</span>",
                 imgs: [
                     "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"
                 ],
                 note: "Японский минимализм ценит воздух и уединение. Идеальное сочетание со светлым дубом."
             },
             "scandinavian": {
-                type: "DESIGN INTERIOR",
-                title: "Scandinavian Clean Lines",
+                type: "DESIGN INTERIOR<br><span style='font-size:0.85em; opacity:0.7; display:block; margin-top:2px;'>Дизайнерский интерьер</span>",
+                title: "Scandinavian Clean Lines<br><span style='font-size: 0.55em; color: var(--muted-text); display: block; margin-top: 4px; font-family: Montserrat, sans-serif; font-weight:300;'>Чистые скандинавские линии</span>",
                 imgs: [
                     "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80"
                 ],
                 note: "Скандинавская эстетика уюта. Прозрачность оптического акрила идеально раскрывается при падении дневного света."
             },
             "modern classic": {
-                type: "LUXURY AMBIANCE",
-                title: "Modern Classical Salon",
+                type: "LUXURY AMBIANCE<br><span style='font-size:0.85em; opacity:0.7; display:block; margin-top:2px;'>Премиальная атмосфера</span>",
+                title: "Modern Classical Salon<br><span style='font-size: 0.55em; color: var(--muted-text); display: block; margin-top: 4px; font-family: Montserrat, sans-serif; font-weight:300;'>Современный классический салон</span>",
                 imgs: [
                     "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80"
                 ],
                 note: "Сочетание лепнины, высоких потолков и хай-тек акрила создает уникальный вневременной контраст."
             },
             "mid-century": {
-                type: "ARCHITECTURAL CONCEPT",
-                title: "Mid-Century Modern Vibe",
+                type: "ARCHITECTURAL CONCEPT<br><span style='font-size:0.85em; opacity:0.7; display:block; margin-top:2px;'>Архитектурный концепт</span>",
+                title: "Mid-Century Modern Vibe<br><span style='font-size: 0.55em; color: var(--muted-text); display: block; margin-top: 4px; font-family: Montserrat, sans-serif; font-weight:300;'>Атмосфера модерна середины века</span>",
                 imgs: [
                     "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1200&q=80"
                 ],
@@ -660,9 +704,9 @@
             wrapper.className = 'cinematic-fade is-visible';
             wrapper.innerHTML = `
                 <div class="collector-card">
-                    <h3>STATUS: CONFIRMED </h3>
-                    <p><b>Object Hierarchy:</b> Voume I / Drop 300</p>
-                    <p><b>Aesthetic Archetype:</b> ${vibe.archetype}</p>
+                    <h3>STATUS: CONFIRMED<br><span style="font-size: 0.65em; color: var(--muted-text); display: block; margin-top: 4px; font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 1px;">Статус: Подтверждено</span></h3>
+                    <p><b>Object Hierarchy / Иерархия объекта:</b> Volume I / Drop 300 <span style="font-size: 0.85em; color: var(--muted-text);">(Том I / Дроп 300)</span></p>
+                    <p><b>Aesthetic Archetype / Эстетический архетип:</b><br>${vibe.archetype}</p>
                     <p class="curator-note" style="margin-top:15px;">${vibe.note}</p>
                     <div class="audio-player-container">
                         <span class="audio-title">${vibe.trackTitle}</span>
@@ -754,7 +798,7 @@
         document.querySelectorAll('.suggestion-item').forEach(item => {
             item.addEventListener('click', function() {
                 const value = this.getAttribute('data-value');
-                lookbookInput.value = this.innerText;
+                lookbookInput.value = this.childNodes[0].textContent.trim();
                 suggestions.style.display = 'none';
                 renderLookbook(value);
             });
@@ -787,8 +831,10 @@
             lookbookResult.innerHTML = '';
             let data = null;
             
+            const cleanQuery = query.toLowerCase().trim();
+            
             for (let key in lookbookData) {
-                if (key.includes(query) || query.includes(key)) {
+                if (key.includes(cleanQuery) || cleanQuery.includes(key)) {
                     data = lookbookData[key];
                     break;
                 }
@@ -801,10 +847,10 @@
                 
                 wrapper.innerHTML = `
                     <span class="tag-badge">${data.type}</span>
-                    <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.35rem; margin-bottom:12px; font-weight:400; text-transform: uppercase;">${data.title}</h3>
+                    <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.35rem; margin-bottom:12px; font-weight:400; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.4;">${data.title}</h3>
                     
                     <div class="image-wrapper">
-                        <img id="lookbook-slider-img" src="${data.imgs[0]}" alt="${data.title}">
+                        <img id="lookbook-slider-img" src="${data.imgs[0]}" alt="">
                         
                         <div class="slider-nav" style="${data.imgs.length <= 1 ? 'display:none;' : ''}">
                             <button class="slider-arrow" onclick="changeSlide(-1, ${data.imgs.length}, ${JSON.stringify(data.imgs).replace(/"/g, '&quot;')})" aria-label="Назад">
@@ -823,30 +869,6 @@
                 setTimeout(() => wrapper.classList.add('is-visible'), 50);
             }
         }
-
-        // КИНЕМАТОГРАФИЧНЫЙ СКРОЛЛ-НАБЛЮДАТЕЛЬ (Intersection Observer)
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.08
-        };
-
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.cinematic-fade').forEach(element => {
-            scrollObserver.observe(element);
-        });
-
-        // Первичная проверка статуса реестра при загрузке страницы
-        window.addEventListener('DOMContentLoaded', () => {
-            checkRegistryStatus();
-        });
     </script>
 </body>
 </html>
