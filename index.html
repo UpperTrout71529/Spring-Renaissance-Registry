@@ -257,20 +257,42 @@
             font-weight: 400;
         }
 
-        .audio-player-container {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid var(--input-border);
+        /* ИНТЕРАКТИВНАЯ СЦЕНА ТЕНЕЙ */
+        .shadow-scene {
+            margin: 35px auto 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            height: 240px;
+            background: radial-gradient(circle, rgba(24cf, 245, 240, 0.4) 0%, transparent 70%);
+            border-radius: 12px;
         }
-        
-        .audio-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--muted-text);
-            margin-bottom: 14px;
-            display: block;
-            line-height: 1.4;
+
+        .premium-vase-silhouette {
+            width: 115px;
+            height: 165px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(245, 240, 235, 0.35) 100%);
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            border-radius: 4px 16px 16px 4px;
+            box-shadow: inset -3px 0 10px rgba(0,0,0,0.01);
+            backdrop-filter: blur(4px);
+            position: relative;
+            /* Динамическое смещение drop-shadow на основе CSS-переменных */
+            filter: drop-shadow(var(--sh-x, 6px) var(--sh-y, 12px) 14px rgba(0, 0, 0, 0.13));
+            transition: filter 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .premium-vase-silhouette::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 6px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 4px 0 0 4px;
+            border-right: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .fomo-plate {
@@ -545,7 +567,7 @@
             });
         });
 
-        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР С ССЫЛКАМИ НА ЯНДЕКС МУЗЫКУ
+        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР АРХЕТИПОВ
         function getVibeByToken(token) {
             const cleanToken = token.trim().toLowerCase();
             const match = cleanToken.match(/^(\d+)renaissance(\d+)$/);
@@ -558,64 +580,69 @@
 
             const codeNum = firstNum;
 
-            // СЮДА ВСТАВЛЯЮТСЯ ССЫЛКИ ИЗ АТРИБУТА SRC СКОПИРОВАННОГО HTML-КОДА ЯНДЕКС МУЗЫКИ
             if (codeNum >= 0 && codeNum <= 30) {
                 return {
                     number: codeNum,
                     archetype: "Intellectual Noir<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Интеллектуальный нуар</small>",
-                    note: `Ваш эксклюзивный экземпляр №${codeNum} гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.`,
-                    yandexWidgetUrl: "https://music.yandex.ru/iframe/#playlist/fsagradyan/1012" // Пример ссылки на трек
+                    note: `Ваш эксклюзивный экземпляр №${codeNum} гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.`
                 };
             } 
             else if (codeNum >= 31 && codeNum <= 70) {
                 return {
                     number: codeNum,
                     archetype: "Architectural Gallery<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Архитектурная галерея</small>",
-                    note: `Экземпляр №${codeNum} создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.`,
-                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/7315401/track/27965" 
+                    note: `Экземпляр №${codeNum} создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.`
                 };
             } 
             else if (codeNum >= 71 && codeNum <= 150) {
                 return {
                     number: codeNum,
                     archetype: "Classic Bookcore Edition<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Классическое книжное издание</small>",
-                    note: `Экземпляр №${codeNum} подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.`,
-                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/2986357/track/25343639"
+                    note: `Экземпляр №${codeNum} подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.`
                 };
             } 
             else if (codeNum >= 151 && codeNum <= 230) {
                 return {
                     number: codeNum,
                     archetype: "Modern Heritage<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Современное наследие</small>",
-                    note: `Ваш экземпляр №${codeNum} — это мост между традицией и футуризмом акриловых граней.`,
-                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/12710111/track/58264940"
+                    note: `Ваш экземпляр №${codeNum} — это мост между традицией и футуризмом акриловых граней.`
                 };
             } 
             else if (codeNum >= 231 && codeNum <= 270) {
                 return {
                     number: codeNum,
                     archetype: "Silent Luxury Cohort<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Когорта тихого люкса</small>",
-                    note: `Эстетика тихого люкса для номера №${codeNum}. Минимум декора, максимум текстуры.`,
-                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/13964295/track/78236201"
+                    note: `Эстетика тихого люкса для номера №${codeNum}. Минимум декора, максимум текстуры.`
                 };
             } 
             else if (codeNum >= 271 && codeNum <= 299) {
                 return {
                     number: codeNum,
                     archetype: "Avant-Garde Collector<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Авангардный коллекционер</small>",
-                    note: `Предпоследняя когорта №${codeNum}. Смелые дизайнерские пространства, наполненные искусством.`,
-                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/242064/track/2444104"
+                    note: `Предпоследняя когорта №${codeNum}. Смелые дизайнерские пространства, наполненные искусством.`
                 };
             } 
             else if (codeNum === 300) {
                 return {
                     number: codeNum,
                     archetype: "The Final Opus (Apex Number)<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Финальный опус (Высшая точка коллекции)</small>",
-                    note: `Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.`,
-                    yandexWidgetUrl: "https://music.yandex.ru/iframe/album/9172879/track/795836"
+                    note: `Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.`
                 };
             }
             return null;
+        }
+
+        // ГЕНЕРАТОР ГЕОГРАФИЧЕСКИХ ЛОКАЦИЙ ДЛЯ РЕЕСТРА ВЛАДЕЛЬЦЕВ
+        function getMockLocation(num) {
+            const locations = [
+                "Москва, Патриаршие пруды", "Санкт-Петербург, Каменный остров", 
+                "Москва, Хамовники", "Казань, Кремлевская набережная", 
+                "Москва, Остоженка", "Сочи, Красная Поляна", 
+                "Екатеринбург, Набережная Исети", "Нижний Новгород, Верхне-Волжская наб.",
+                "Москва, Замоскворечье", "Санкт-Петербург, Крестовский остров"
+            ];
+            const index = (num * 7) % locations.length;
+            return locations[index];
         }
 
         // БАЗА ДАННЫХ ЛУКБУКА
@@ -690,7 +717,7 @@
             return false;
         }
 
-        // РЕНДЕР КАРТОЧКИ С ИНТЕГРИРОВАННЫМ ФРЕЙМОМ ЯНДЕКС МУЗЫКИ
+        // ОБНОВЛЕННЫЙ РЕНДЕР КАРТОЧКИ УСПЕШНОЙ ВЕРИФИКАЦИИ
         function renderSuccessfulCard(code) {
             const vibe = getVibeByToken(code);
             if (!vibe) return;
@@ -699,31 +726,84 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'cinematic-fade is-visible';
             
-            // Динамическая адаптация высоты фрейма: для трека оптимально 150px-180px, для плейлистов — 450px
-            const isPlaylist = vibe.yandexWidgetUrl.includes('playlist');
-            const widgetHeight = isPlaylist ? "450px" : "180px";
+            const currentNum = vibe.number;
+            const prevNum = currentNum - 1;
+            const nextNum = currentNum + 1;
 
             wrapper.innerHTML = `
                 <div class="collector-card">
-                    <h3>STATUS: CONFIRMED<br><span style="font-size: 0.65em; color: var(--muted-text); display: block; margin-top: 4px; font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 1px;">Статус: Подтверждено</span></h3>
-                    <p><b>Object Hierarchy / Иерархия объекта:</b> Volume I / Drop 300 <span style="font-size: 0.85em; color: var(--muted-text);">(Том I / Дроп 300)</span></p>
+                    <h3 style="color: #4a825f; letter-spacing: 1px;">STATUS: CONFIRMED<br><span style="font-size: 0.65em; color: var(--muted-text); display: block; margin-top: 4px; font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 1px;">Статус: Подтверждено</span></h3>
+                    <p style="margin-top: 14px;"><b>Object Hierarchy / Иерархия объекта:</b> Volume I / Drop 300 <span style="font-size: 0.85em; color: var(--muted-text);">(Том I / Дроп 300)</span></p>
                     <p><b>Aesthetic Archetype / Эстетический архетип:</b><br>${vibe.archetype}</p>
-                    <p class="curator-note" style="margin-top:15px; margin-bottom:20px;">${vibe.note}</p>
+                    <p class="curator-note" style="margin-top:15px; margin-bottom:15px;">${vibe.note}</p>
                     
-                    <div class="audio-player-container">
-                        <span class="audio-title">Аудио-сопровождение пространства</span>
+                    <div class="shadow-scene" id="interactive-scene">
+                        <div class="premium-vase-silhouette" id="vase-object"></div>
+                    </div>
+
+                    <div style="margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
+                        <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted-text); display: block; margin-bottom: 15px; font-weight: 400;">Spatial Registry / Географическое распределение</span>
                         
-                        <iframe 
-                            frameborder="0" 
-                            style="border: none; width: 100%; height: ${widgetHeight}; border-radius: 12px; background: transparent;" 
-                            width="100%" 
-                            height="${widgetHeight}" 
-                            src="${vibe.yandexWidgetUrl}">
-                        </iframe>
+                        <div style="display: flex; flex-direction: column; gap: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem;">
+                            
+                            ${prevNum >= 1 ? `
+                                <div style="display: flex; justify-content: space-between; color: var(--muted-text); opacity: 0.45;">
+                                    <span>№${String(prevNum).padStart(3, '0')}</span>
+                                    <span style="font-weight: 300;">${getMockLocation(prevNum)}</span>
+                                </div>
+                            ` : ''}
+
+                            <div style="display: flex; justify-content: space-between; color: #111; font-weight: 400; background: rgba(0,0,0,0.02); padding: 10px 14px; border-radius: 8px; border-left: 2px solid var(--accent-color);">
+                                <span style="font-weight: 500;">№${String(currentNum).padStart(3, '0')} (Вы)</span>
+                                <span style="font-weight: 400;">${getMockLocation(currentNum)}</span>
+                            </div>
+
+                            ${nextNum <= 300 ? `
+                                <div style="display: flex; justify-content: space-between; color: var(--muted-text); opacity: 0.45;">
+                                    <span>№${String(nextNum).padStart(3, '0')}</span>
+                                    <span style="font-weight: 300;">${getMockLocation(nextNum)}</span>
+                                </div>
+                            ` : ''}
+                            
+                        </div>
                     </div>
                 </div>
             `;
             registryResult.appendChild(wrapper);
+
+            // ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ТЕНЕЙ СРАЗУ ПОСЛЕ ОТРИСОВКИ
+            initShadowMagic();
+        }
+
+        function initShadowMagic() {
+            const vase = document.getElementById('vase-object');
+            if (!vase) return;
+
+            // Настольные ПК: Движение курсора
+            window.addEventListener('mousemove', (e) => {
+                const x = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+                const y = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+                
+                // Рассчитываем деликатные смещения для утонченного эффекта
+                vase.style.setProperty('--sh-x', `${x * 24 + 6}px`);
+                vase.style.setProperty('--sh-y', `${y * 24 + 12}px`);
+            });
+
+            // Мобильные устройства: Показания гироскопа
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', (e) => {
+                    const gamma = e.gamma; // Наклон влево/вправо [-90, 90]
+                    const beta = e.beta;   // Наклон вперед/назад [-180, 180]
+
+                    if (gamma && beta) {
+                        const moveX = Math.min(Math.max(gamma / 2.5, -16), 16) + 6;
+                        const moveY = Math.min(Math.max((beta - 45) / 2.5, -16), 16) + 12;
+
+                        vase.style.setProperty('--sh-x', `${moveX}px`);
+                        vase.style.setProperty('--sh-y', `${moveY}px`);
+                    }
+                });
+            }
         }
 
         function renderLockedPlate() {
@@ -780,106 +860,104 @@
 
         registryForm.addEventListener('submit', (e) => { e.preventDefault(); executeRegistrySearch(); });
 
-        // МЕХАНИЗМ СБРОСА ЛИМИТОВ ДЛЯ РАЗРАБОТЧИКА (Тройной клик по заголовку)
-        document.getElementById('registry-title').addEventListener('click', function (e) {
-            if (e.detail === 3) { 
-                localStorage.removeItem('sr_failed_attempts');
-                localStorage.removeItem('sr_verified_code');
-                alert('Логи дебаггинга: Данные текущей сессии и лимиты попыток успешно сброшены.');
-                location.reload();
-            }
-        });
-
-        // ЛОГИКА ЛУКБУКА
+        // ЛОГИКА ДЛЯ ИНТЕРЬЕРНОГО ЛУКБУКА
         const lookbookForm = document.getElementById('lookbook-form');
         const lookbookInput = document.getElementById('lookbook-input');
-        const suggestions = document.getElementById('suggestions');
         const lookbookResult = document.getElementById('lookbook-result');
+        const suggestions = document.getElementById('suggestions');
 
         lookbookInput.addEventListener('focus', () => { suggestions.style.display = 'block'; });
-
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('#lookbook-form')) {
+            if (!lookbookInput.contains(e.target) && !suggestions.contains(e.target)) {
                 suggestions.style.display = 'none';
             }
         });
 
         document.querySelectorAll('.suggestion-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const value = this.getAttribute('data-value');
-                lookbookInput.value = this.childNodes[0].textContent.trim();
+            item.addEventListener('click', () => {
+                const val = item.getAttribute('data-value');
+                lookbookInput.value = item.textContent.trim().split('\n')[0].trim();
                 suggestions.style.display = 'none';
-                renderLookbook(value);
+                renderLookbookItem(val);
             });
         });
 
-        lookbookForm.addEventListener('submit', (e) => { 
-            e.preventDefault(); 
+        lookbookForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = lookbookInput.value.toLowerCase().trim();
+            if(lookbookData[query]) {
+                renderLookbookItem(query);
+            } else {
+                renderLookbookItem("japandi"); // Дефолтный откат
+            }
             suggestions.style.display = 'none';
-            renderLookbook(lookbookInput.value.toLowerCase().trim()); 
         });
 
-        window.changeSlide = function(direction, maxImages, imgArray) {
-            currentImgIndex += direction;
-            if (currentImgIndex < 0) currentImgIndex = maxImages - 1;
-            if (currentImgIndex >= maxImages) currentImgIndex = 0;
-            
-            const imgElement = document.getElementById('lookbook-slider-img');
-            const counterElement = document.getElementById('lookbook-counter');
-            
-            imgElement.style.opacity = '0';
-            setTimeout(() => {
-                imgElement.src = imgArray[currentImgIndex];
-                imgElement.style.opacity = '1';
-                counterElement.innerText = `${currentImgIndex + 1} из ${maxImages}`;
-            }, 200);
-        };
+        function renderLookbookItem(key) {
+            const data = lookbookData[key];
+            if(!data) return;
+            currentImgIndex = 0;
 
-        function renderLookbook(query) {
-            if (!query) return;
-            lookbookResult.innerHTML = '';
-            let data = null;
-            
-            const cleanQuery = query.toLowerCase().trim();
-            
-            for (let key in lookbookData) {
-                if (key.includes(cleanQuery) || cleanQuery.includes(key)) {
-                    data = lookbookData[key];
-                    break;
-                }
-            }
-
-            if (data) {
-                currentImgIndex = 0;
-                const wrapper = document.createElement('div');
-                wrapper.className = 'cinematic-fade';
-                
-                wrapper.innerHTML = `
+            lookbookResult.innerHTML = `
+                <div class="cinematic-fade is-visible" style="margin-top: 25px;">
                     <span class="tag-badge">${data.type}</span>
-                    <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.35rem; margin-bottom:12px; font-weight:400; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.4;">${data.title}</h3>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase;">${data.title}</h3>
                     
                     <div class="image-wrapper">
-                        <img id="lookbook-slider-img" src="${data.imgs[0]}" alt="">
-                        
-                        <div class="slider-nav" style="${data.imgs.length <= 1 ? 'display:none;' : ''}">
-                            <button class="slider-arrow" onclick="changeSlide(-1, ${data.imgs.length}, ${JSON.stringify(data.imgs).replace(/"/g, '&quot;')})" aria-label="Назад">
-                                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                            </button>
-                            <button class="slider-arrow" onclick="changeSlide(1, ${data.imgs.length}, ${JSON.stringify(data.imgs).replace(/"/g, '&quot;')})" aria-label="Вперед">
-                                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </button>
-                        </div>
+                        <img src="${data.imgs[currentImgIndex]}" id="slider-img" alt="Lookbook Image">
+                        ${data.imgs.length > 1 ? `
+                            <div class="slider-nav">
+                                <button class="slider-arrow" id="prev-btn" aria-label="Назад">
+                                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                </button>
+                                <button class="slider-arrow" id="next-btn" aria-label="Вперед">
+                                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </button>
+                            </div>
+                        ` : ''}
                     </div>
-                    
-                    <div class="slider-counter" id="lookbook-counter" style="${data.imgs.length <= 1 ? 'display:none;' : ''}">1 из ${data.imgs.length}</div>
+                    ${data.imgs.length > 1 ? `<div class="slider-counter" id="slider-ctr">1 / ${data.imgs.length}</div>` : ''}
                     <p class="curator-note">${data.note}</p>
-                `;
-                lookbookResult.appendChild(wrapper);
-                setTimeout(() => wrapper.classList.add('is-visible'), 50);
+                </div>
+            `;
+
+            if(data.imgs.length > 1) {
+                const imgEl = document.getElementById('slider-img');
+                const ctrEl = document.getElementById('slider-ctr');
+                
+                document.getElementById('prev-btn').addEventListener('click', () => {
+                    currentImgIndex = (currentImgIndex - 1 + data.imgs.length) % data.imgs.length;
+                    imgEl.style.opacity = '0';
+                    setTimeout(() => {
+                        imgEl.src = data.imgs[currentImgIndex];
+                        imgEl.style.opacity = '1';
+                        ctrEl.textContent = `${currentImgIndex + 1} / ${data.imgs.length}`;
+                    }, 200);
+                });
+
+                document.getElementById('next-btn').addEventListener('click', () => {
+                    currentImgIndex = (currentImgIndex + 1) % data.imgs.length;
+                    imgEl.style.opacity = '0';
+                    setTimeout(() => {
+                        imgEl.src = data.imgs[currentImgIndex];
+                        imgEl.style.opacity = '1';
+                        ctrEl.textContent = `${currentImgIndex + 1} / ${data.imgs.length}`;
+                    }, 200);
+                });
             }
         }
 
-        // Проверка статуса при загрузке страницы
+        // МЕХАНИЗМ СБРОСА ЛИМИТОВ ДЛЯ РАЗРАБОТЧИКА (Тройной клик по заголовку)
+        document.getElementById('registry-title').addEventListener('click', function (e) {
+            if (e.detail === 3) { 
+                localStorage.removeItem('sr_failed_attempts');
+                localStorage.removeItem('sr_verified_code');
+                alert('Логи дебаггинга: Данные успешно сброшены. Перезагрузите страницу.');
+                location.reload();
+            }
+        });
+
+        // Проверка статуса при первичной загрузке страницы
         checkRegistryStatus();
     </script>
 </body>
