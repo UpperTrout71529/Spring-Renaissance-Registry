@@ -257,7 +257,7 @@
             font-weight: 400;
         }
 
-        /* ИНТЕРАКТИВНАЯ СЦЕНА ТЕНЕЙ */
+        /* ИНТЕРАКТИВНАЯ СЦЕНА ТЕНЕЙ ДЛЯ ЛОГОТИПА */
         .shadow-scene {
             margin: 35px auto 25px;
             display: flex;
@@ -269,29 +269,14 @@
             border-radius: 12px;
         }
 
-        .premium-vase-silhouette {
-            width: 115px;
-            height: 165px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(245, 240, 235, 0.35) 100%);
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 4px 16px 16px 4px;
-            box-shadow: inset -3px 0 10px rgba(0,0,0,0.01);
-            backdrop-filter: blur(4px);
+        .sr-logo-under-gyro {
+            width: 140px;
+            object-fit: contain;
+            display: block;
             position: relative;
-            filter: drop-shadow(var(--sh-x, 6px) var(--sh-y, 12px) 14px rgba(0, 0, 0, 0.13));
-            transition: filter 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .premium-vase-silhouette::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 6px;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.02);
-            border-radius: 4px 0 0 4px;
-            border-right: 1px solid rgba(255, 255, 255, 0.4);
+            z-index: 10;
+            filter: drop-shadow(var(--sh-x, 0px) var(--sh-y, 12px) 20px rgba(191, 163, 138, 0.45));
+            transition: filter 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         /* АНИМАЦИЯ СИНХРОНИЗАЦИИ */
@@ -574,7 +559,7 @@
     </footer>
 
     <script>
-        // ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА (Плавное появление секций при загрузке)
+        // ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('section.cinematic-fade, footer.cinematic-fade').forEach((el, index) => {
                 setTimeout(() => {
@@ -648,7 +633,7 @@
             return null;
         }
 
-        // ГЕНЕРАТОР ПРОШЛЫХ ГЕОГРАФИЧЕСКИХ ЛОКАЦИЙ ДЛЯ ИМИТАЦИИ ЦЕПОЧКИ
+        // ГЕНЕРАТОР ПРОШЛЫХ ГЕОГРАФИЧЕСКИХ ЛОКАЦИЙ
         function getMockLocation(num) {
             const locations = [
                 "Москва, Патриаршие пруды", "Санкт-Петербург, Каменный остров", 
@@ -714,7 +699,7 @@
         const registryInput = document.getElementById('registry-input');
         const registryResult = document.getElementById('registry-result');
 
-        // ЛОГИКА БЕЗОПАСНОСТИ И ОГРАНИЧЕНИЯ ВВОДА
+        // ЛОГИКА БЕЗОПАСНОСТИ
         function checkRegistryStatus() {
             const savedCode = localStorage.getItem('sr_verified_code');
             const totalAttempts = parseInt(localStorage.getItem('sr_failed_attempts') || '0', 10);
@@ -733,7 +718,7 @@
             return false;
         }
 
-        // АСИНХРОННЫЙ ЗАПРОС РЕАЛЬНОЙ ГЕОЛОКАЦИИ ПО КОРДИНАТАМ БРАУЗЕРА
+        // АСИНХРОННЫЙ ЗАПРОС ГЕОЛОКАЦИИ
         function syncLiveGeolocation(num) {
             const locLabel = document.getElementById('current-user-location');
             if (!locLabel) return;
@@ -744,7 +729,6 @@
                     const lon = position.coords.longitude;
                     
                     try {
-                        // Реверсивный бесшовный геокодинг на базе OpenStreetMap (языковой пакет - RU)
                         const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&accept-language=ru`);
                         const data = await response.json();
                         
@@ -764,7 +748,6 @@
                         fallbackToDefaultLocation(num, locLabel);
                     }
                 }, (error) => {
-                    // Отклонение доступа или таймаут
                     fallbackToDefaultLocation(num, locLabel);
                 }, { timeout: 7000 });
             } else {
@@ -780,7 +763,7 @@
             }, 300);
         }
 
-        // МОДИФИЦИРОВАННЫЙ РЕНДЕР КАРТОЧКИ (ИСКЛЮЧЕН СЛЕДУЮЩИЙ НОМЕР)
+        // РЕНДЕР КАРТОЧКИ С ЛОГОТИПОМ
         function renderSuccessfulCard(code) {
             const vibe = getVibeByToken(code);
             if (!vibe) return;
@@ -800,7 +783,7 @@
                     <p class="curator-note" style="margin-top:15px; margin-bottom:15px;">${vibe.note}</p>
                     
                     <div class="shadow-scene" id="interactive-scene">
-                        <div class="premium-vase-silhouette" id="vase-object"></div>
+                        <img src="SR LOGO PNG.png" alt="Spring Renaissance Logo" class="sr-logo-under-gyro" id="gyro-logo">
                     </div>
 
                     <div style="margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
@@ -832,20 +815,20 @@
             `;
             registryResult.appendChild(wrapper);
 
-            // ЗАПУСК ИНТЕРАКТИВОВ И ОПРЕДЕЛЕНИЯ ЛОКАЦИИ В РЕАЛЬНОМ ВРЕМЕНИ
             initShadowMagic();
             syncLiveGeolocation(currentNum);
         }
 
         function initShadowMagic() {
-            const vase = document.getElementById('vase-object');
-            if (!vase) return;
+            const logo = document.getElementById('gyro-logo');
+            if (!logo) return;
 
             window.addEventListener('mousemove', (e) => {
                 const x = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
                 const y = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
-                vase.style.setProperty('--sh-x', `${x * 24 + 6}px`);
-                vase.style.setProperty('--sh-y', `${y * 24 + 12}px`);
+                // Координаты смещения тени
+                logo.style.setProperty('--sh-x', `${x * 24}px`);
+                logo.style.setProperty('--sh-y', `${y * 24 + 15}px`);
             });
 
             if (window.DeviceOrientationEvent) {
@@ -854,11 +837,11 @@
                     const beta = e.beta;
 
                     if (gamma && beta) {
-                        const moveX = Math.min(Math.max(gamma / 2.5, -16), 16) + 6;
-                        const moveY = Math.min(Math.max((beta - 45) / 2.5, -16), 16) + 12;
+                        const moveX = Math.min(Math.max(gamma / 2.5, -16), 16);
+                        const moveY = Math.min(Math.max((beta - 45) / 2.5, -16), 16) + 15;
 
-                        vase.style.setProperty('--sh-x', `${moveX}px`);
-                        vase.style.setProperty('--sh-y', `${moveY}px`);
+                        logo.style.setProperty('--sh-x', `${moveX}px`);
+                        logo.style.setProperty('--sh-y', `${moveY}px`);
                     }
                 });
             }
@@ -1005,7 +988,7 @@
             }
         }
 
-        // МЕХАНИЗМ СБРОСА ЛИМИТОВ ДЛЯ РАЗРАБОТЧИКА (Тройной клик по заголовку)
+        // МЕХАНИЗМ СБРОСА ЛИМИТОВ ДЛЯ РАЗРАБОТЧИКА
         document.getElementById('registry-title').addEventListener('click', function (e) {
             if (e.detail === 3) { 
                 localStorage.removeItem('sr_failed_attempts');
