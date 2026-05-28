@@ -11,14 +11,14 @@
         :root {
             --bg-color: #fcfaf7;
             --text-color: #211f1c;
-            --accent-color: #bfa38a;
+            --accent-color: #bfa38a; /* Розовое золото / шампань */
             --muted-text: #8c857e;
             --input-bg: #ffffff;
             --input-border: #e8e5e0;
             --button-bg: #211f1c;
             --button-text: #ffffff;
             --card-bg: #ffffff;
-            --luxury-tg-color: #5E4638;
+            --luxury-tg-color: #5E4638; /* Премиальный оттенок */
         }
 
         * {
@@ -238,12 +238,13 @@
 
         .collector-card h3 {
             font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 1.5px;
+            默默_spacing: 1.5px;
             font-size: 1.15rem;
             font-weight: 500;
             color: #4a825f;
             margin-bottom: 15px;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
 
         .collector-card p {
@@ -257,43 +258,27 @@
             font-weight: 400;
         }
 
-        /* ИНТЕРАКТИВНАЯ СЦЕНА ТЕНЕЙ ДЛЯ ЛОГОТИПА */
-        .shadow-scene {
-            margin: 35px auto 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
-            height: 240px;
-            background: radial-gradient(circle, rgba(245, 240, 235, 0.4) 0%, transparent 70%);
-            border-radius: 12px;
+        .audio-player-container {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--input-border);
         }
-
-        .sr-logo-under-gyro {
-            width: 140px;
-            object-fit: contain;
+        
+        .audio-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted-text);
+            margin-bottom: 8px;
             display: block;
-            position: relative;
-            z-index: 10;
-            filter: drop-shadow(var(--sh-x, 0px) var(--sh-y, 12px) 20px rgba(191, 163, 138, 0.45));
-            transition: filter 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            line-height: 1.4;
         }
 
-        /* АНИМАЦИЯ СИНХРОНИЗАЦИИ */
-        @keyframes geoPulse {
-            0% { transform: scale(0.9); opacity: 0.4; }
-            50% { transform: scale(1.15); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.4; }
-        }
-
-        .live-pulse-beacon {
-            width: 6px;
-            height: 6px;
-            background-color: #4a825f;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-            animation: geoPulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        audio {
+            width: 100%;
+            margin-top: 5px;
+            outline: none;
+            border-radius: 8px;
         }
 
         .fomo-plate {
@@ -416,7 +401,7 @@
         }
 
         footer {
-            margin-top: 220px; 
+            margin-top: 220px; /* Глубокое разделение для структуры Quiet Luxury */
             padding: 60px 20px 80px;
             text-align: center;
             border-top: 1px solid #f2ece6;
@@ -559,16 +544,7 @@
     </footer>
 
     <script>
-        // ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('section.cinematic-fade, footer.cinematic-fade').forEach((el, index) => {
-                setTimeout(() => {
-                    el.classList.add('is-visible');
-                }, index * 120 + 100);
-            });
-        });
-
-        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР АРХЕТИПОВ
+        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР
         function getVibeByToken(token) {
             const cleanToken = token.trim().toLowerCase();
             const match = cleanToken.match(/^(\d+)renaissance(\d+)$/);
@@ -585,68 +561,69 @@
                 return {
                     number: codeNum,
                     archetype: "Intellectual Noir<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Интеллектуальный нуар</small>",
-                    note: `Ваш эксклюзивный экземпляр №${codeNum} гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.`
+                    note: `Ваш эксклюзивный экземпляр №${codeNum} гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.`,
+                    trackTitle: "Аудио-сессия: Dark Jazz & Rain Session<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Дарк-джаз и шум дождя</small>",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
                 };
             } 
             else if (codeNum >= 31 && codeNum <= 70) {
                 return {
                     number: codeNum,
                     archetype: "Architectural Gallery<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Архитектурная галерея</small>",
-                    note: `Экземпляр №${codeNum} создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.`
+                    note: `Экземпляр №${codeNum} создан для открытых пространств, наполненных чистым светом. Идеален для монохромных галерейных зон.`,
+                    trackTitle: "Аудио-сессия: Minimalist Structural Ambient<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Минималистичный структурный эмбиент</small>",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
                 };
             } 
             else if (codeNum >= 71 && codeNum <= 150) {
                 return {
                     number: codeNum,
                     archetype: "Classic Bookcore Edition<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Классическое книжное издание</small>",
-                    note: `Экземпляр №${codeNum} подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.`
+                    note: `Экземпляр №${codeNum} подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.`,
+                    trackTitle: "Аудио-сессия: Neoclassical Reading Lounge<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Неоклассическая гостиная для чтения</small>",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
                 };
             } 
             else if (codeNum >= 151 && codeNum <= 230) {
                 return {
                     number: codeNum,
                     archetype: "Modern Heritage<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Современное наследие</small>",
-                    note: `Ваш экземпляр №${codeNum} — это мост между традицией и футуризмом акриловых граней.`
+                    note: `Ваш экземпляр №${codeNum} — это мост между традицией и футуризмом акриловых граней.`,
+                    trackTitle: "Аудио-сессия: Modern Heritage Ambient<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Эмбиент современного наследия</small>",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
                 };
             } 
             else if (codeNum >= 231 && codeNum <= 270) {
                 return {
                     number: codeNum,
                     archetype: "Silent Luxury Cohort<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Когорта тихого люкса</small>",
-                    note: `Эстетика тихого люкса для номера №${codeNum}. Минимум декора, максимум текстуры.`
+                    note: `Эстетика тихого люкса для номера №${codeNum}. Минимум декора, максимум текстуры.`,
+                    trackTitle: "Аудио-сессия: Soft Shimmering Light<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Мягкий мерцающий свет</small>",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
                 };
             } 
             else if (codeNum >= 271 && codeNum <= 299) {
                 return {
                     number: codeNum,
                     archetype: "Avant-Garde Collector<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Авангардный коллекционер</small>",
-                    note: `Предпоследняя когорта №${codeNum}. Смелые дизайнерские пространства, наполненные искусством.`
+                    note: `Предпоследняя когорта №${codeNum}. Смелые дизайнерские пространства, наполненные искусством.`,
+                    trackTitle: "Аудио-сессия: Experimental Lo-Fi Session<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Экспериментальная лоу-фай сессия</small>",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
                 };
             } 
             else if (codeNum === 300) {
                 return {
                     number: codeNum,
                     archetype: "The Final Opus (Apex Number)<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Финальный опус (Высшая точка коллекции)</small>",
-                    note: `Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.`
+                    note: `Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.`,
+                    trackTitle: "Аудио-сессия: The Grand Finale Ambient<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Финальный торжественный эмбиент</small>",
+                    audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
                 };
             }
             return null;
         }
 
-        // ГЕНЕРАТОР ПРОШЛЫХ ГЕОГРАФИЧЕСКИХ ЛОКАЦИЙ
-        function getMockLocation(num) {
-            const locations = [
-                "Москва, Патриаршие пруды", "Санкт-Петербург, Каменный остров", 
-                "Москва, Хамовники", "Казань, Кремлевская набережная", 
-                "Москва, Остоженка", "Сочи, Красная Поляна", 
-                "Екатеринбург, Набережная Исети", "Нижний Новгород, Верхне-Волжская наб.",
-                "Москва, Замоскворечье", "Санкт-Петербург, Крестовский остров"
-            ];
-            const index = (num * 7) % locations.length;
-            return locations[index];
-        }
-
-        // БАЗА ДАННЫХ ЛУКБУКА
+               // БАЗА ДАННЫХ ЛУКБУКА
         const lookbookData = {
             "dark academia": {
                 type: "REALIZED SPACE<br><span style='font-size:0.85em; opacity:0.7; display:block; margin-top:2px;'>Реализованное пространство</span>",
@@ -707,7 +684,7 @@
         const registryInput = document.getElementById('registry-input');
         const registryResult = document.getElementById('registry-result');
 
-        // ЛОГИКА БЕЗОПАСНОСТИ
+        // ЛОГИКА БЕЗОПАСНОСТИ И ОГРАНИЧЕНИЯ ВВОДА
         function checkRegistryStatus() {
             const savedCode = localStorage.getItem('sr_verified_code');
             const totalAttempts = parseInt(localStorage.getItem('sr_failed_attempts') || '0', 10);
@@ -726,52 +703,6 @@
             return false;
         }
 
-        // АСИНХРОННЫЙ ЗАПРОС ГЕОЛОКАЦИИ
-        function syncLiveGeolocation(num) {
-            const locLabel = document.getElementById('current-user-location');
-            if (!locLabel) return;
-
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(async (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    
-                    try {
-                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&accept-language=ru`);
-                        const data = await response.json();
-                        
-                        if (data && data.address) {
-                            const city = data.address.city || data.address.town || data.address.village || data.address.state || "Premium Location";
-                            const country = data.address.country || "";
-                            
-                            locLabel.style.opacity = '0';
-                            setTimeout(() => {
-                                locLabel.textContent = `${city}${country ? ', ' + country : ''}`;
-                                locLabel.style.opacity = '1';
-                            }, 300);
-                        } else {
-                            fallbackToDefaultLocation(num, locLabel);
-                        }
-                    } catch (err) {
-                        fallbackToDefaultLocation(num, locLabel);
-                    }
-                }, (error) => {
-                    fallbackToDefaultLocation(num, locLabel);
-                }, { timeout: 7000 });
-            } else {
-                fallbackToDefaultLocation(num, locLabel);
-            }
-        }
-
-        function fallbackToDefaultLocation(num, element) {
-            element.style.opacity = '0';
-            setTimeout(() => {
-                element.textContent = getMockLocation(num);
-                element.style.opacity = '1';
-            }, 300);
-        }
-
-        // РЕНДЕР КАРТОЧКИ С ЛОГОТИПОМ
         function renderSuccessfulCard(code) {
             const vibe = getVibeByToken(code);
             if (!vibe) return;
@@ -779,80 +710,19 @@
             registryResult.innerHTML = '';
             const wrapper = document.createElement('div');
             wrapper.className = 'cinematic-fade is-visible';
-            
-            const currentNum = vibe.number;
-            const prevNum = currentNum - 1;
-
             wrapper.innerHTML = `
                 <div class="collector-card">
-                    <h3 style="color: #4a825f; letter-spacing: 1px;">STATUS: CONFIRMED<br><span style="font-size: 0.65em; color: var(--muted-text); display: block; margin-top: 4px; font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 1px;">Статус: Подтверждено</span></h3>
-                    <p style="margin-top: 14px;"><b>Object Hierarchy / Иерархия объекта:</b> Volume I / Drop 300 <span style="font-size: 0.85em; color: var(--muted-text);">(Том I / Дроп 300)</span></p>
+                    <h3>STATUS: CONFIRMED<br><span style="font-size: 0.65em; color: var(--muted-text); display: block; margin-top: 4px; font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 1px;">Статус: Подтверждено</span></h3>
+                    <p><b>Object Hierarchy / Иерархия объекта:</b> Volume I / Drop 300 <span style="font-size: 0.85em; color: var(--muted-text);">(Том I / Дроп 300)</span></p>
                     <p><b>Aesthetic Archetype / Эстетический архетип:</b><br>${vibe.archetype}</p>
-                    <p class="curator-note" style="margin-top:15px; margin-bottom:15px;">${vibe.note}</p>
-                    
-                    <div class="shadow-scene" id="interactive-scene">
-                        <img src="SR LOGO PNG.png" alt="Spring Renaissance Logo" class="sr-logo-under-gyro" id="gyro-logo">
-                    </div>
-
-                    <div style="margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted-text); font-weight: 400;">Spatial Registry / Живой поток распределения</span>
-                            <span style="display: inline-flex; align-items: center; font-size: 0.6rem; text-transform: uppercase; color: #4a825f; letter-spacing: 1px; font-weight: 400;">
-                                <span class="live-pulse-beacon"></span>
-                                Live Sync
-                            </span>
-                        </div>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem;">
-                            
-                            ${prevNum >= 1 ? `
-                                <div style="display: flex; justify-content: space-between; color: var(--muted-text); opacity: 0.45; filter: blur(0.3px);">
-                                    <span>№${String(prevNum).padStart(3, '0')}</span>
-                                    <span style="font-weight: 300;">${getMockLocation(prevNum)}</span>
-                                </div>
-                            ` : ''}
-
-                            <div style="display: flex; justify-content: space-between; color: #111; font-weight: 400; background: rgba(0,0,0,0.01); padding: 11px 14px; border-radius: 10px; border-left: 2px solid var(--text-color);">
-                                <span style="font-weight: 500; letter-spacing: 0.5px;">№${String(currentNum).padStart(3, '0')} (Вы)</span>
-                                <span style="font-weight: 400; color: var(--text-color); transition: opacity 0.4s ease;" id="current-user-location">Определение геопозиции...</span>
-                            </div>
-                            
-                        </div>
+                    <p class="curator-note" style="margin-top:15px;">${vibe.note}</p>
+                    <div class="audio-player-container">
+                        <span class="audio-title">${vibe.trackTitle}</span>
+                        <audio controls src="${vibe.audioUrl}"></audio>
                     </div>
                 </div>
             `;
             registryResult.appendChild(wrapper);
-
-            initShadowMagic();
-            syncLiveGeolocation(currentNum);
-        }
-
-        function initShadowMagic() {
-            const logo = document.getElementById('gyro-logo');
-            if (!logo) return;
-
-            window.addEventListener('mousemove', (e) => {
-                const x = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
-                const y = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
-                // Координаты смещения тени
-                logo.style.setProperty('--sh-x', `${x * 24}px`);
-                logo.style.setProperty('--sh-y', `${y * 24 + 15}px`);
-            });
-
-            if (window.DeviceOrientationEvent) {
-                window.addEventListener('deviceorientation', (e) => {
-                    const gamma = e.gamma;
-                    const beta = e.beta;
-
-                    if (gamma && beta) {
-                        const moveX = Math.min(Math.max(gamma / 2.5, -16), 16);
-                        const moveY = Math.min(Math.max((beta - 45) / 2.5, -16), 16) + 15;
-
-                        logo.style.setProperty('--sh-x', `${moveX}px`);
-                        logo.style.setProperty('--sh-y', `${moveY}px`);
-                    }
-                });
-            }
         }
 
         function renderLockedPlate() {
@@ -909,104 +779,104 @@
 
         registryForm.addEventListener('submit', (e) => { e.preventDefault(); executeRegistrySearch(); });
 
-        // ЛОГИКА ДЛЯ ИНТЕРЬЕРНОГО ЛУКБУКА
+        // МЕХАНИЗМ СБРОСА ЛИМИТОВ ДЛЯ РАЗРАБОТЧИКА (Тройной клик по заголовку)
+        document.getElementById('registry-title').addEventListener('click', function (e) {
+            if (e.detail === 3) { 
+                localStorage.removeItem('sr_failed_attempts');
+                localStorage.removeItem('sr_verified_code');
+                alert('Логи дебаггинга: Данные текущей сессии и лимиты попыток успешно сброшены.');
+                location.reload();
+            }
+        });
+
+        // ЛОГИКА ЛУКБУКА
         const lookbookForm = document.getElementById('lookbook-form');
         const lookbookInput = document.getElementById('lookbook-input');
-        const lookbookResult = document.getElementById('lookbook-result');
         const suggestions = document.getElementById('suggestions');
+        const lookbookResult = document.getElementById('lookbook-result');
 
         lookbookInput.addEventListener('focus', () => { suggestions.style.display = 'block'; });
+
         document.addEventListener('click', (e) => {
-            if (!lookbookInput.contains(e.target) && !suggestions.contains(e.target)) {
+            if (!e.target.closest('#lookbook-form')) {
                 suggestions.style.display = 'none';
             }
         });
 
         document.querySelectorAll('.suggestion-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const val = item.getAttribute('data-value');
-                lookbookInput.value = item.textContent.trim().split('\n')[0].trim();
+            item.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                lookbookInput.value = this.childNodes[0].textContent.trim();
                 suggestions.style.display = 'none';
-                renderLookbookItem(val);
+                renderLookbook(value);
             });
         });
 
-        lookbookForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const query = lookbookInput.value.toLowerCase().trim();
-            if(lookbookData[query]) {
-                renderLookbookItem(query);
-            } else {
-                renderLookbookItem("japandi");
-            }
+        lookbookForm.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
             suggestions.style.display = 'none';
+            renderLookbook(lookbookInput.value.toLowerCase().trim()); 
         });
 
-        function renderLookbookItem(key) {
-            const data = lookbookData[key];
-            if(!data) return;
-            currentImgIndex = 0;
+        window.changeSlide = function(direction, maxImages, imgArray) {
+            currentImgIndex += direction;
+            if (currentImgIndex < 0) currentImgIndex = maxImages - 1;
+            if (currentImgIndex >= maxImages) currentImgIndex = 0;
+            
+            const imgElement = document.getElementById('lookbook-slider-img');
+            const counterElement = document.getElementById('lookbook-counter');
+            
+            imgElement.style.opacity = '0';
+            setTimeout(() => {
+                imgElement.src = imgArray[currentImgIndex];
+                imgElement.style.opacity = '1';
+                counterElement.innerText = `${currentImgIndex + 1} из ${maxImages}`;
+            }, 200);
+        };
 
-            lookbookResult.innerHTML = `
-                <div class="cinematic-fade is-visible" style="margin-top: 25px;">
+        function renderLookbook(query) {
+            if (!query) return;
+            lookbookResult.innerHTML = '';
+            let data = null;
+            
+            const cleanQuery = query.toLowerCase().trim();
+            
+            for (let key in lookbookData) {
+                if (key.includes(cleanQuery) || cleanQuery.includes(key)) {
+                    data = lookbookData[key];
+                    break;
+                }
+            }
+
+            if (data) {
+                currentImgIndex = 0;
+                const wrapper = document.createElement('div');
+                wrapper.className = 'cinematic-fade';
+                
+                wrapper.innerHTML = `
                     <span class="tag-badge">${data.type}</span>
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase;">${data.title}</h3>
+                    <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.35rem; margin-bottom:12px; font-weight:400; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.4;">${data.title}</h3>
                     
                     <div class="image-wrapper">
-                        <img src="${data.imgs[currentImgIndex]}" id="slider-img" alt="Lookbook Image">
-                        ${data.imgs.length > 1 ? `
-                            <div class="slider-nav">
-                                <button class="slider-arrow" id="prev-btn" aria-label="Назад">
-                                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                                </button>
-                                <button class="slider-arrow" id="next-btn" aria-label="Вперед">
-                                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                                </button>
-                            </div>
-                        ` : ''}
+                        <img id="lookbook-slider-img" src="${data.imgs[0]}" alt="">
+                        
+                        <div class="slider-nav" style="${data.imgs.length <= 1 ? 'display:none;' : ''}">
+                            <button class="slider-arrow" onclick="changeSlide(-1, ${data.imgs.length}, ${JSON.stringify(data.imgs).replace(/"/g, '&quot;')})" aria-label="Назад">
+                                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            </button>
+                            <button class="slider-arrow" onclick="changeSlide(1, ${data.imgs.length}, ${JSON.stringify(data.imgs).replace(/"/g, '&quot;')})" aria-label="Вперед">
+                                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </button>
+                        </div>
                     </div>
-                    ${data.imgs.length > 1 ? `<div class="slider-counter" id="slider-ctr">1 / ${data.imgs.length}</div>` : ''}
+                    
+                    <div class="slider-counter" id="lookbook-counter" style="${data.imgs.length <= 1 ? 'display:none;' : ''}">1 из ${data.imgs.length}</div>
                     <p class="curator-note">${data.note}</p>
-                </div>
-            `;
-
-            if(data.imgs.length > 1) {
-                const imgEl = document.getElementById('slider-img');
-                const ctrEl = document.getElementById('slider-ctr');
-                
-                document.getElementById('prev-btn').addEventListener('click', () => {
-                    currentImgIndex = (currentImgIndex - 1 + data.imgs.length) % data.imgs.length;
-                    imgEl.style.opacity = '0';
-                    setTimeout(() => {
-                        imgEl.src = data.imgs[currentImgIndex];
-                        imgEl.style.opacity = '1';
-                        ctrEl.textContent = `${currentImgIndex + 1} / ${data.imgs.length}`;
-                    }, 200);
-                });
-
-                document.getElementById('next-btn').addEventListener('click', () => {
-                    currentImgIndex = (currentImgIndex + 1) % data.imgs.length;
-                    imgEl.style.opacity = '0';
-                    setTimeout(() => {
-                        imgEl.src = data.imgs[currentImgIndex];
-                        imgEl.style.opacity = '1';
-                        ctrEl.textContent = `${currentImgIndex + 1} / ${data.imgs.length}`;
-                    }, 200);
-                });
+                `;
+                lookbookResult.appendChild(wrapper);
+                setTimeout(() => wrapper.classList.add('is-visible'), 50);
             }
         }
-
-        // МЕХАНИЗМ СБРОСА ЛИМИТОВ ДЛЯ РАЗРАБОТЧИКА
-        document.getElementById('registry-title').addEventListener('click', function (e) {
-            if (e.detail === 3) { 
-                localStorage.removeItem('sr_failed_attempts');
-                localStorage.removeItem('sr_verified_code');
-                alert('Логи дебаггинга: Данные успешно сброшены. Перезагрузите страницу.');
-                location.reload();
-            }
-        });
-
-        checkRegistryStatus();
     </script>
 </body>
 </html>
