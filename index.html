@@ -552,7 +552,7 @@
             });
         });
 
-        // АЛГОРИТМИЧЕСКИЙ ПАРСЕР АТМОСФЕР С СОБСТВЕННЫМ САУНД-ДИЗАЙНОМ
+  // АЛГОРИТМИЧЕСКИЙ ПАРСЕР АТМОСФЕР
 function getVibeByToken(token) {
     const cleanToken = token.trim().toLowerCase();
     const match = cleanToken.match(/^(\d+)renaissance(\d+)$/);
@@ -561,17 +561,17 @@ function getVibeByToken(token) {
     const firstNum = parseInt(match[1], 10);
     const secondNum = parseInt(match[2], 10);
 
-    if (firstNum !== secondNum || firstNum < 1 || firstNum > 300) return null;
+    if (firstNum !== secondNum || firstNum < 0 || firstNum > 300) return null;
 
     const codeNum = firstNum;
 
-    if (codeNum >= 1 && codeNum <= 30) {
+    if (codeNum >= 0 && codeNum <= 30) {
         return {
             number: codeNum,
             archetype: "Intellectual Noir<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Интеллектуальный нуар</small>",
             note: `Ваш эксклюзивный экземпляр №${codeNum} гармонирует с премиальным темным деревом, старинными книгами и мягким акцентным светом.`,
             trackTitle: "Аудио-сессия: The cozy solitude of an expensive office.<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Уютное одиночество дорогого кабинета.</small>",
-            audioUrl: "audio/noir.mp3"
+            audioUrl: "audio/noir.mp3.MP3"
         };
     } 
     else if (codeNum >= 31 && codeNum <= 70) {
@@ -579,8 +579,8 @@ function getVibeByToken(token) {
             number: codeNum,
             archetype: "Parisian Atelier<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Парижское ателье</small>",
             note: `Экземпляр №${codeNum} вдохновлен атмосферой уединенных творческих мастерских, где рождаются кутюрные формы.`,
-            trackTitle: "Аудио-сессия: A closed atelier in Paris.<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Закрытое ателье в Париже.</small>",
-            audioUrl: "audio/atelier.mp3"
+            trackTitle: "Аудио-сессия: A CLOSED ATELIER IN PARIS.<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Закрытое ателье в Париже.</small>",
+            audioUrl: "audio/atelier.mp3.MP3"
         };
     } 
     else if (codeNum >= 71 && codeNum <= 150) {
@@ -589,7 +589,7 @@ function getVibeByToken(token) {
             archetype: "Classic Bookcore Edition<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Классическое книжное издание</small>",
             note: `Экземпляр №${codeNum} подчеркивает величие домашних библиотек. Рекомендуется соседство с фолиантами по искусству.`,
             trackTitle: "Аудио-сессия: The Old Oxford Library & the Closed Archives.<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Старинная библиотека Оксфорда & Закрытый архив.</small>",
-            audioUrl: "audio/bookcore.mp3"
+            audioUrl: "audio/bookcore.mp3.MP3"
         };
     } 
     else if (codeNum >= 151 && codeNum <= 230) {
@@ -598,7 +598,7 @@ function getVibeByToken(token) {
             archetype: "Modern Heritage<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Современное наследие</small>",
             note: `Ваш экземпляр №${codeNum} — это мост между традицией и футуризмом акриловых граней.`,
             trackTitle: "Аудио-сессия: Villa gardens in Italy at sunset.<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Сады виллы в Италии на закате.</small>",
-            audioUrl: "audio/heritage.mp3"
+            audioUrl: "audio/heritage.mp3.MP3"
         };
     } 
     else if (codeNum >= 231 && codeNum <= 270) {
@@ -606,8 +606,8 @@ function getVibeByToken(token) {
             number: codeNum,
             archetype: "Silent Luxury Cohort<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Когорта тихого люкса</small>",
             note: `Эстетика тихого люкса для номера №${codeNum}. Минимум декора, максимум текстуры.`,
-            trackTitle: "Аудио-сессия: The sterile interior of a penthouse in Tokyo.<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Стерильный interior пентхауса в Токио.</small>",
-            audioUrl: "audio/luxury.mp3"
+            trackTitle: "Аудио-сессия: The sterile interior of a penthouse in Tokyo.<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Стерильный интерьер пентхауса в Токио.</small>",
+            audioUrl: "audio/luxury.mp3.MP3"
         };
     } 
     else if (codeNum >= 271 && codeNum <= 299) {
@@ -616,7 +616,7 @@ function getVibeByToken(token) {
             archetype: "Publisher's Workshop<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Мастерская издателя</small>",
             note: `Предпоследняя когорта №${codeNum}. Пространство, где рождаются тактильные идеи, редкая периодика и тяжелые альбомы по искусству.`,
             trackTitle: "Аудио-сессия: Work on layout blueprints & soft city focus.<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Работа над макетами, шуршание кальки и приглушенный город.</small>",
-            audioUrl: "audio/workshop.mp3"
+            audioUrl: "audio/workshop.mp3.MP3"
         };
     } 
     else if (codeNum === 300) {
@@ -625,12 +625,11 @@ function getVibeByToken(token) {
             archetype: "The Final Opus (Apex Number)<br><small style='font-size: 0.8em; color: var(--muted-text); font-weight: 300;'>Финальный опус (Высшая точка коллекции)</small>",
             note: `Финальный, закрывающий коллекцию экземпляр №300. Исторический артефакт бренда Spring Renaissance.`,
             trackTitle: "Аудио-сессия: A historical triumph.<br><small style='font-size: 0.85em; color: var(--muted-text); text-transform: none; display: block; margin-top: 2px;'>Исторический триумф. Резонанс рояля и ливень.</small>",
-            audioUrl: "audio/opus.mp3"
+            audioUrl: "audio/opus.mp3.MP3"
         };
     }
     return null;
 }
-
         // БАЗА ДАННЫХ ЛУКБУКА
         const lookbookData = {
             "dark academia": {
