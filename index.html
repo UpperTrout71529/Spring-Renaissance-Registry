@@ -11,14 +11,14 @@
         :root {
             --bg-color: #fcfaf7;
             --text-color: #211f1c;
-            --accent-color: #bfa38a; /* Розовое золото / шампань */
+            --accent-color: #bfa38a;
             --muted-text: #8c857e;
             --input-bg: #ffffff;
             --input-border: #e8e5e0;
             --button-bg: #211f1c;
             --button-text: #ffffff;
             --card-bg: #ffffff;
-            --luxury-tg-color: #5E4638; /* Премиальный оттенок */
+            --luxury-tg-color: #5E4638;
         }
 
         * {
@@ -238,13 +238,12 @@
 
         .collector-card h3 {
             font-family: 'Cormorant Garamond', serif;
-            默默_spacing: 1.5px;
+            letter-spacing: 1.5px;
             font-size: 1.15rem;
             font-weight: 500;
             color: #4a825f;
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
         }
 
         .collector-card p {
@@ -401,7 +400,7 @@
         }
 
         footer {
-            margin-top: 220px; /* Глубокое разделение для структуры Quiet Luxury */
+            margin-top: 220px; 
             padding: 60px 20px 80px;
             text-align: center;
             border-top: 1px solid #f2ece6;
@@ -544,6 +543,15 @@
     </footer>
 
     <script>
+        // ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА (Плавное появление секций при загрузке)
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('section.cinematic-fade, footer.cinematic-fade').forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('is-visible');
+                }, index * 120 + 100);
+            });
+        });
+
         // АЛГОРИТМИЧЕСКИЙ ПАРСЕР
         function getVibeByToken(token) {
             const cleanToken = token.trim().toLowerCase();
@@ -623,7 +631,7 @@
             return null;
         }
 
-               // БАЗА ДАННЫХ ЛУКБУКА
+        // БАЗА ДАННЫХ ЛУКБУКА
         const lookbookData = {
             "dark academia": {
                 type: "REALIZED SPACE<br><span style='font-size:0.85em; opacity:0.7; display:block; margin-top:2px;'>Реализованное пространство</span>",
@@ -675,6 +683,7 @@
                 note: "Эстетика 60-х годов с теплыми ореховыми тонами мебели подчеркивает геометрию акриловой формы."
             }
         };
+
 
         let currentImgIndex = 0;
 
